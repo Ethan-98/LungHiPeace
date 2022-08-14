@@ -1,0 +1,16 @@
+<header th:fragment="sidebar">
+    <!-- My Account Tab Menu Start -->
+    <div class="myaccount-tab-menu nav" role="tablist">
+        <a href="#account-info" id="memberCenterBasic" class="" data-bs-toggle="tab"><i
+                class="fa fa-user"></i>
+            會員基本資料</a>
+        <a th:href="@{/Front/ordersview}"><i class="fa fa-cart-arrow-down"></i> 訂單查詢</a>
+        <a href="#download" data-bs-toggle="tab"><i class="fa-solid fa-hand-holding-heart"></i>
+            志工記錄查詢</a>
+        <a th:href="@{/FrontEndAnimalF/animal1}"><i class="fa fa-sign-out"></i> 認養/送養記錄查詢</a>
+        <a href="#update-password" data-bs-toggle="tab"><i
+                class="fa-solid fa-shield-halved"></i> 安全性</a>
+        <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> 登出</a>
+    </div>
+    <!-- My Account Tab Menu End -->
+</header>

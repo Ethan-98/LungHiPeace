@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.min.js"></script>
+
+<head>
+    <div th:include="FrontEnd/includes/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>表單填寫</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+<!-- _navbar -->
+<div th:include="FrontEnd/includes/navbar :: navbar"></div>
+
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.jsp -->
+    <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close ti-close"></i>
+        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="todo-tab"
+                                    data-bs-toggle="tab" href="#todo-section" role="tab"
+                                    aria-controls="todo-section" aria-expanded="true">TO DO LIST</a></li>
+            <li class="nav-item"><a class="nav-link" id="chats-tab"
+                                    data-bs-toggle="tab" href="#chats-section" role="tab"
+                                    aria-controls="chats-section">CHATS</a></li>
+        </ul>
+    </div>
+    <!-- partial -->
+    <!-- partial:partials/_sidebar.jsp -->
+    <!-- partial -->
+    <!-- 顯示區域從這開始 -->
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card container">
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="button" name="Submit" value="一鍵輸入 " onClick="ok4()">
+                            <form name="form4" action="#" id="form"    class="forms-sample" th:action="@{/FrontEndAnimalF/saveAnimal}"
+                                  enctype="multipart/form-data"
+                                  method="post"
+                                  th:object="${animals}">
+
+                                <div class="form-group">
+                                    <label> <span>種類</span>
+                                        <select th:field="*{abtype}" class="js-example-basic-single w-100 select2-hidden-accessible" id="ab_type">
+                                            <option value="貓">貓</option>
+                                            <option value="狗">狗</option>
+                                            <option value="其他">其他</option>
+                                        </select>
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label> <span>品種</span>
+                                        <select th:field="*{abvariety}" class="js-example-basic-single w-100 select2-hidden-accessible" id="ab_variety">
+                                            <option value="混種貓">混種貓</option>
+                                            <option value="金絲貓">金絲貓</option>
+                                            <option value="緬因貓">緬因貓</option>
+                                            <option value="加菲貓">加菲貓</option>
+                                            <option value="折耳貓">折耳貓</option>
+                                            <option value="混種狗">混種狗</option>
+                                            <option value="米格魯">米格魯</option>
+                                            <option value="哈士奇">哈士奇</option>
+                                            <option value="柯基">柯基</option>
+                                            <option value="高山犬">高山犬</option>
+                                            <option value="寵物鼠">寵物鼠</option>
+                                            <option value="寵物兔">寵物兔</option>
+
+                                        </select>
+
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label> <span>性別</span>
+                                        <select th:field="*{absex}" class="js-example-basic-single w-100 select2-hidden-accessible" id="ab_sex">
+                                            <option value="公">公</option>
+                                            <option value="母">母</option>
+                                        </select>
+                                    </label>
+                                </div>                                <div>
+                                <label>Photos: </label>
+                                <input type="file" name="image" accept="image/png, image/jpeg" />
+                                <!-- <input type="text" th:field="*{abphonto}" class="form-control" id="abphonto"/>-->
+                            </div>
+
+                                <br/>
+
+                                <div class="form-group">
+                                    <label>使用者帳戶</label>
+                                    <input type="text" th:field="*{abarea}" class="form-control" id="ab_area" th:name="ab_area" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>收容所地址</label>
+                                    <input type="text" th:field="*{abname}" class="form-control" id="ab_name"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>電話</label>
+                                    <input type="text" th:field="*{abphone}" class="form-control" id="ab_phone"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>收容所信箱</label>
+                                    <input type="text" th:field="*{abemail}" class="form-control" id="ab_email"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>日期</label>
+                                    <input type="date" th:field="*{abdate}" class="form-control" id="ab_date"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>描述</label>
+                                    <input type="text" th:field="*{abremark}" class="form-control" id="ab_remark"/>
+                                </div>
+
+                                <div>
+
+                                <input  type="number" hidden th:field="*{abaudit}" value="1" class="form-control" id="ab_audit"/>
+                        </div>
+
+<!--                                <div class="form-group">-->
+<!--                                    <label> <span>狀態</span>-->
+<!--                                        <select th:field="*{abaudit}" class="js-example-basic-single w-100 select2-hidden-accessible" id="ab_audit">-->
+<!--                                            <option value="0">審核通過</option>-->
+<!--                                            <option value="1">審核中</option>-->
+<!--                                        </select>-->
+<!--                                    </label>-->
+<!--                                </div>-->
+
+                                <button type="button" class="btn btn-warning me-2" onclick="add();"><i
+                                        class="bi bi-send"></i>送出
+                                </button>
+
+                                <!--                                <button type="button" class="btn btn-warning me-2"-->
+                                <!--                                        th:onclick="oneClick1()";-->
+                                <!--                                        id="oneClick1"><i class="bi bi-send"></i>一鍵輸入-->
+                                <!--                                </button>-->
+
+
+
+                                <button type="button" class="btn btn-light" onclick="cancel();">Cancel</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- partial:partials/_footer.jsp -->
+<div th:include="BackEnd/includes/footer :: footer"></div>
+<!-- 主畫面結束 -->
+<!-- container-scroller -->
+
+<!-- Js匯入 -->
+<script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
+<script type='text/javascript' class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#location" /></script>
+<script type="text/javascript" th:src="@{/BackEnd/js/abdogForm.js}"></script>
+
+<div th:include="BackEnd/includes/JavaScript :: JavaScript"></div>
+<script type="text/javascript">
+    function cancel() {
+        window.location.href = "./abdoglist"
+    }
+
+
+</script>
+<script>
+    function add(){
+        var form = document.getElementById("form").value;
+        var ab_name = document.getElementById("ab_name").value;
+        var ab_phone = document.getElementById("ab_phone").value;
+        var ab_email = document.getElementById("ab_email").value;
+
+        if (ab_name == null || ab_name == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入聯絡人名稱！！',
+            })
+            return;
+        }
+
+        if (ab_phone == null || ab_phone == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入電話！！',
+            })
+            return;
+        }
+
+        if (ab_email == null || ab_email == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入信箱！！',
+            })
+            return;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "您將新增寵物表單",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '新增!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    '新增成功!',
+                    '您已成功新增一筆資料',
+                    'success'
+                )
+                var timeoutID = window.setTimeout(( () =>  document.getElementById("form").submit() ), 1000);
+            }
+        })
+
+    }
+</script>
+<script>
+
+    function ok4()
+    {var count=Math.floor(Math.random()*10+1);
+        if (count == 1)
+        { document.form4.abarea.value= "active";
+            document.form4.abname.value = "台北市大安區認養中心";
+            document.form4.abphone.value = "0912345678";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value = "它的眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
+        }
+        if (count == 2) {
+            document.form4.abarea.value = "active";
+            document.form4.abname.value = "台中巿西區認養中心";
+            document.form4.abphone.value = "0908776891";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value= "它的眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
+        }
+
+
+        if (count == 3) {
+            document.form4.abarea.value = "active";
+            document.form4.abname.value = "台中巿東區認養中心";
+            document.form4.abphone.value = "0907787877";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value = "它的眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
+        }
+
+
+        if (count == 4) {
+            document.form4.abarea.value = "active";
+            document.form4.abname.value = "新北市清水認養中心";
+            document.form4.abphone.value = "097876788";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value = "眼睛圓圓的，小小的鼻子下有一張三角嘴，小嘴兩邊有一個漂亮的八字胡";
+        }
+
+
+        if (count == 5) {
+            document.form4.abarea.value= "active";
+            document.form4.abname.value= "台北市松山區認養中心";
+            document.form4.abphone.value= "0924524545";
+            document.form4.abemail.value= "shen775207@gmail.com";
+            document.form4.abremark.value= "圓圓的腦袋上豎起兩只尖尖的耳朵，顯得特別神氣。";
+        }
+
+
+        if (count == 6) {
+            document.form4.abarea.value = "admin";
+            document.form4.abname.value = "汐止洪國認養中心";
+            document.form4.abphone.value = "0978622678";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value = "小貓鼻子下面有一張人字形的嘴巴，兩旁有6根白色的胡須，常常一扇一扇的，挺神氣。";
+        }
+
+
+        if (count == 7) {
+            document.form4.abarea.value = "admin";
+            document.form4.abname.value = "台中市泰北寵物認養中心";
+            document.form4.abphone.value = "0911254678";
+            document.form4.abemail.value= "shen775207@gmail.com";
+            document.form4.abremark.value = "小貓“咪咪”的那一雙大耳朵，一天到晚都直豎著，哪個地方有聲音，馬上往那邊轉，活像一架有特殊性能的雷達";
+        }
+
+        if (count == 8) {
+            document.form4.abarea.value = "admin";
+            document.form4.abname.value = "台東市民寵物流浪中心";
+            document.form4.abphone.value = "09188845454";
+            document.form4.abemail.value = "shen775207@gmail.com";
+            document.form4.abremark.value = "它一身的白毛像雪似的，中間夾著數塊墨色的細毛，黑白相間，白的顯得越白，而黑的越發顯得黑了";
+        }
+        if (count == 9) {
+            document.form4.abarea.value = "admin";
+            document.form4.abname.value= "彰化縣貓狗認養中心";
+            document.form4.abphone.value = "0917882278";
+            document.form4.abemail.value= "shen775207@gmail.com";
+            document.form4.abremark.value = "它見什么都好奇，就用爪子先輕輕地碰一碰，看看沒有危險再用爪子滾來滾去，從這個屋子滾到那個屋子";
+        }
+
+        if (count == 10) {
+            document.form4.abarea.value = "admin";
+            document.form4.abname.value = "花蓮縣貓狗祝福認養中心";
+            document.form4.abphone.value = "0917537878";
+            document.form4.abemail.value= "shen775207@gmail.com";
+            document.form4.abremark.value = "這只花貓的全身是白底黑斑，遠看上去，像一團雪白的棉花點上了幾滴墨汁";
+        }
+
+    }
+</script>
+</body>
+</html>

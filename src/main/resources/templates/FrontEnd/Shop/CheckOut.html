@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="FrontEnd/includes/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>Lung-Hi Peace</title>
+</head>
+<body>
+<!-- _navbar -->
+<div th:include="FrontEnd/includes/navbar :: navbar"></div>
+<!--主畫面開始-->
+<!-- 商品Title -->
+<!-- Breadcrumb Area Start -->
+<div class="section breadcrumb-area bg-name-bright">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="breadcrumb-wrapper">
+                    <h2 class="breadcrumb-title">購物車</h2>
+                    <ul>
+                        <li>請確認商品內容</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End -->
+
+<!-- Checkout Section Start -->
+<form action="" method="post">
+    <div class="section section-margin">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Coupon Accordion Start -->
+                    <div class="coupon-accordion">
+
+                        <!-- Title Start -->
+                        <h3 class="title">有優惠券? <span id="showcoupon">點擊輸入</span></h3>
+                        <!-- Title End -->
+
+                        <!-- 優惠券開始 -->
+                        <div id="checkout_coupon" class="coupon-checkout-content">
+                            <div class="coupon-info">
+                                <form action="#">
+                                    <p class="checkout-coupon d-flex">
+                                        <input placeholder="請輸入優惠券" type="text">
+                                        <input class="btn btn-primary btn-hover-dark rounded-0" value="完成"
+                                               type="submit">
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- 優惠券結束 -->
+
+                    </div>
+                    <!-- Coupon Accordion End -->
+                </div>
+            </div>
+            <div class="row m-b-n20">
+                <div class="col-lg-6 col-12 m-b-20">
+
+                    <!-- Checkbox Form Start -->
+
+                    <input type="hidden" name="shoppingCartId">
+                    <div class="checkbox-form">
+
+                        <!-- Checkbox Form Title Start -->
+                        <h3 class="title">訂購人資訊</h3>
+                        <!-- Checkbox Form Title End -->
+
+                        <div class="row">
+
+                            <!-- 訂購人 -->
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>訂購人<span class="required" style="color:red">*</span></label>
+                                    <input placeholder="請輸入姓名" type="text" id="name" th:value="${MiName}" name="name">
+                                </div>
+                            </div>
+                            <!-- 訂購人結束 -->
+
+                            <!-- 地址 -->
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>送貨地址 <span class="required" style="color:red">*</span></label>
+                                    <input placeholder="請輸入完整地址" type="text" id="address" required="required"
+                                           th:value="${MiCity+MiDistrict+MiAddress}" name="address">
+                                </div>
+                            </div>
+                            <!-- 地址結束 -->
+
+                            <!-- Email -->
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>電子信箱 <span class="required" style="color:red">*</span></label>
+                                    <input placeholder="請輸入電子信箱" type="email" id="email" name="email"
+                                           th:value="${MiEmail}">
+                                </div>
+                            </div>
+                            <!-- Email End -->
+
+                            <!-- 手機號碼 -->
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>手機號碼 <span class="required" style="color:red">*</span></label>
+                                    <input type="text" name="phone" id="phone" th:value="${MiPhone}">
+                                </div>
+                            </div>
+                            <!-- 手機號碼結束 -->
+                            <div class="col-md-12 m-b-30">
+                                <div class="country-select">
+                                    <label>付款方式: <span class="required">*</span></label>
+                                    <select class="myniceselect nice-select wide rounded-0" name="payType" id="ECPAY"
+                                            value="ECPAY">
+                                        <option value="ECPAY">綠界支付</option>
+                                        <option value="PAYPAL">PAYPAL</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Different Address Start -->
+                        <div class="different-address">
+
+
+                            <!-- Ship Box Info Start -->
+                            <div id="ship-box-info" class="row m-t-10">
+
+                                <!-- Select Country Name Start -->
+                                <div class="col-md-12">
+                                    <div class="myniceselect country-select clearfix">
+                                        <label>Country <span class="required">*</span></label>
+                                        <select class="myniceselect nice-select wide rounded-0">
+                                            <option data-display="Bangladesh">Bangladesh</option>
+                                            <option value="uk">London</option>
+                                            <option value="rou">Romania</option>
+                                            <option value="fr">French</option>
+                                            <option value="de">Germany</option>
+                                            <option value="aus">Australia</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Select Country Name End -->
+
+                                <!-- First Name Input Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>First Name <span class="required">*</span></label>
+                                        <input placeholder="" type="text">
+                                    </div>
+                                </div>
+                                <!-- First Name Input End -->
+
+                                <!-- Last Name Input Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Last Name <span class="required">*</span></label>
+                                        <input placeholder="" type="text">
+                                    </div>
+                                </div>
+                                <!-- Last Name Input End -->
+
+                                <!-- Company Name Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Company Name</label>
+                                        <input placeholder="" type="text">
+                                    </div>
+                                </div>
+                                <!-- Company Name End -->
+
+                                <!-- Address Input Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Address <span class="required">*</span></label>
+                                        <input placeholder="Street address" type="text">
+                                    </div>
+                                </div>
+                                <!-- Address Input End -->
+
+                                <!-- Optional Text Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
+                                    </div>
+                                </div>
+                                <!-- Optional Text End -->
+
+                                <!-- Town or City Input Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Town / City <span class="required">*</span></label>
+                                        <input type="text">
+                                    </div>
+                                </div>
+                                <!-- Town or City Input End -->
+
+                                <!-- State or Country Input Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>State / County <span class="required">*</span></label>
+                                        <input placeholder="" type="text">
+                                    </div>
+                                </div>
+                                <!-- State or Country Input End -->
+
+                                <!-- Postcode or Zip Input Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Postcode / Zip <span class="required">*</span></label>
+                                        <input placeholder="" type="text">
+                                    </div>
+                                </div>
+                                <!-- Postcode or Zip Input End -->
+
+                                <!-- Email Address Input Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Email Address <span class="required">*</span></label>
+                                        <input placeholder="" type="email">
+                                    </div>
+                                </div>
+                                <!-- Email Address Input End -->
+
+                                <!-- Phone Number Input Start -->
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Phone <span class="required">*</span></label>
+                                        <input type="text">
+                                    </div>
+                                </div>
+                                <!-- Phone Number Input End -->
+
+                            </div>
+
+
+                            <!-- Ship Box Info End -->
+
+                        </div>
+                        <!-- Different Address End -->
+                    </div>
+
+                    <!-- Checkbox Form End -->
+
+                </div>
+
+                <div class="col-lg-6 col-12 m-b-20">
+
+                    <!-- 訂單明細 -->
+                    <div class="your-order-area border">
+
+                        <!-- Title Start -->
+                        <h3 class="title">訂單明細</h3>
+                        <!-- Title End -->
+
+                        <!-- Your Order Table Start -->
+                        <div class="your-order-table table-responsive" id="cart">
+                            <table class="table" th:each="item:${cart.cart.values()}">
+
+                                <!-- Table Head Start -->
+                                <thead>
+                                <tr class="cart-product-head">
+                                    <input type="hidden" class="product-id" value="1"/>
+                                    <th class="cart-product-name text-start">商品</th>
+                                    <th class="cart-product-total text-end">總金額</th>
+                                </tr>
+                                </thead>
+                                <!-- Table Head End -->
+
+                                <!-- Table Body Start -->
+                                <tbody>
+                                <input type="hidden" name="shoppingCartId">
+                                <tr class="cart_item">
+                                    <td class="cart-product-name text-start ps-0">
+                                        [[${item.productName}]]<strong
+                                            class="product-quantity">x [[${item.qty}]]</strong></td>
+                                    <td class="cart-product-total text-end pe-0"><span class="amount">$[[${item.price}*${item.qty}]]</span>
+                                    </td>
+                                </tr>
+
+                                <!-- Table Body End -->
+
+                                <!-- Table Footer Start -->
+                                <tfoot>
+                                <tr class="cart-subtotal">
+                                    <th class="text-start ps-0">購物車小計</th>
+                                    <td class="text-end pe-0"><span class="amount">$ [[${item.subTotal}]]</span>
+                                    </td>
+                                </tr>
+                                <tr class="order-total">
+                                    <th class="text-start ps-0">訂單總金額</th>
+                                    <td class="text-end pe-0"><strong><span
+                                            class="amount">$ [[${cart.total}]]</span></strong></td>
+                                </tr>
+                                </tfoot>
+                                <!-- Table Footer End -->
+
+                            </table>
+                        </div>
+                        <!-- Your Order Table End -->
+
+                        <!-- Payment Accordion Order Button Start -->
+                        <div class="payment-accordion-order-button">
+                            <div class="payment-accordion">
+                                <div class="single-payment">
+                                    <h5 class="panel-title m-b-15">
+                                        <a class="collapse-off" data-bs-toggle="collapse" href="#collapseExample"
+                                           aria-expanded="false" aria-controls="collapseExample">
+                                            Direct Bank Transfer.
+                                        </a>
+                                    </h5>
+                                    <div class="collapse show" id="collapseExample">
+                                        <div class="card card-body rounded-0">
+                                            <p>Make your payment directly into our bank account. Please use your Order
+                                                ID as
+                                                the payment reference. Your order won’t be shipped until the funds have
+                                                cleared in our account.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-payment">
+                                    <h5 class="panel-title m-b-15">
+                                        <a class="collapse-off" data-bs-toggle="collapse" href="#collapseExample-2"
+                                           aria-expanded="false" aria-controls="collapseExample-2">
+                                            Cheque Payment.
+                                        </a>
+                                    </h5>
+                                    <div class="collapse" id="collapseExample-2">
+                                        <div class="card card-body rounded-0">
+                                            <p>Make your payment directly into our bank account. Please use your Order
+                                                ID as
+                                                the payment reference. Your order won’t be shipped until the funds have
+                                                cleared in our account.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-payment">
+                                    <h5 class="panel-title m-b-15">
+                                        <a class="collapse-off" data-bs-toggle="collapse" href="#collapseExample-3"
+                                           aria-expanded="false" aria-controls="collapseExample-3">
+                                            Paypal.
+                                        </a>
+                                    </h5>
+                                    <div class="collapse" id="collapseExample-3">
+                                        <div class="card card-body rounded-0">
+                                            <p>Make your payment directly into our bank account. Please use your Order
+                                                ID as
+                                                the payment reference. Your order won’t be shipped until the funds have
+                                                cleared in our account.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-button-payment">
+                                <button class="btn btn-primary btn-hover-dark rounded-0 w-100" type="submit">送出訂單
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Payment Accordion Order Button End -->
+                    </div>
+                    <!-- Your Order Area End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- Checkout Section End -->
+
+
+<!-- Breadcrumb Area End -->
+<div th:include="BackEnd/includes/footer :: footer"></div>
+
+
+<!-- Mobile Menu Start -->
+<div class="mobile-menu-wrapper">
+    <div class="offcanvas-overlay"></div>
+
+    <!-- Mobile Menu Inner Start -->
+    <div class="mobile-menu-inner">
+
+        <!-- Button Close Start -->
+        <div class="offcanvas-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        <!-- Button Close End -->
+
+        <!-- Mobile Menu Inner Wrapper Start -->
+        <div class="mobile-menu-inner-wrapper">
+            <!-- Mobile Menu Search Box Start -->
+            <div class="search-box-offcanvas">
+                <form>
+                    <input class="search-input-offcanvas" type="text" placeholder="Search product...">
+                    <button class="search-btn"><i class="icon-magnifier"></i></button>
+                </form>
+            </div>
+            <!-- Mobile Menu Search Box End -->
+
+            <!-- Mobile Menu Start -->
+            <div class="mobile-navigation">
+                <nav>
+                    <ul class="mobile-menu">
+                        <li class="has-children">
+                            <a href="#">Home <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="index.html">Home One</a></li>
+                                <li><a href="index-2.html">Home Two</a></li>
+                                <li><a href="index-3.html">Home Three</a></li>
+                                <li><a href="index-4.html">Home Four</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Shop <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="shop.html">Shop Grid</a></li>
+                                <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
+                                <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
+                                <li><a href="shop-list-fullwidth.html">Shop List Fullwidth</a></li>
+                                <li><a href="shop-list-left-sidebar.html">Shop List Left Sidebar</a></li>
+                                <li><a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a></li>
+                                <li><a href="wishlist.html">Wishlist</a></li>
+                                <li><a href="Order.html">Shopping Cart</a></li>
+                                <li><a href="checkout.html">Checkout</a></li>
+                                <li><a href="compare.html">Compare</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Product <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="single-product.html">Single Product</a></li>
+                                <li><a href="single-product-sale.html">Single Product Sale</a></li>
+                                <li><a href="single-product-group.html">Single Product Group</a></li>
+                                <li><a href="single-product-normal.html">Single Product Normal</a></li>
+                                <li><a href="single-product-affiliate.html">Single Product Affiliate</a></li>
+                                <li><a href="single-product-slider.html">Single Product Slider</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Pages <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="faq.html">Faq</a></li>
+                                <li><a href="error-404.html">Error 404</a></li>
+                                <li><a href="my-account.html">My Account</a></li>
+                                <li><a href="login.html">Login | Register</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Blog <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
+                                <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
+                                <li><a href="blog-details.html">Blog Details</a></li>
+                                <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Mobile Menu End -->
+
+            <!-- Language, Currency & Link Start -->
+            <div class="offcanvas-lag-curr m-b-30">
+                <div class="header-top-lan-curr-link">
+                    <div class="header-top-lan dropdown">
+                        <h4 class="title">Language:</h4>
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown">English <i
+                                class="fa fa-angle-down"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                            <li><a class="dropdown-item" href="#">Japanese</a></li>
+                            <li><a class="dropdown-item" href="#">Arabic</a></li>
+                            <li><a class="dropdown-item" href="#">Romanian</a></li>
+                        </ul>
+                    </div>
+                    <div class="header-top-curr dropdown">
+                        <h4 class="title">Currency:</h4>
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown">USD <i
+                                class="fa fa-angle-down"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a class="dropdown-item" href="#">USD</a></li>
+                            <li><a class="dropdown-item" href="#">Pound</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Language, Currency & Link End -->
+
+            <!-- Contact Links/Social Links Start -->
+            <div class="mt-auto bottom-0">
+
+                <!-- Contact Links Start -->
+                <ul class="contact-links">
+                    <li><i class="fa fa-phone"></i><a href="#"> +012 3456 789</a></li>
+                    <li><i class="fa fa-envelope-o"></i><a href="#"> info@example.com</a></li>
+                    <li><i class="fa fa-clock-o"></i> <span>Monday - Sunday 9.00 - 18.00</span></li>
+                </ul>
+                <!-- Contact Links End -->
+
+                <!-- Social Widget Start -->
+                <div class="widget-social">
+                    <a title="Facebook" href="#"><i class="fa fa-facebook-f"></i></a>
+                    <a title="Twitter" href="#"><i class="fa fa-twitter"></i></a>
+                    <a title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+                    <a title="Youtube" href="#"><i class="fa fa-youtube"></i></a>
+                    <a title="Vimeo" href="#"><i class="fa fa-vimeo"></i></a>
+                </div>
+                <!-- Social Widget Ende -->
+            </div>
+            <!-- Contact Links/Social Links End -->
+        </div>
+        <!-- Mobile Menu Inner Wrapper End -->
+
+    </div>
+    <!-- Mobile Menu Inner End -->
+</div>
+<div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
+<!-- Blog Section End -->
+<script>
+    function getCartDate(data) {
+        fetch('[[@{/Carts}]]')
+            .then(response => response.json())
+            .then(function (cart) {
+                getDataFormJosn(cart)
+
+            });
+    }
+
+
+</script>
+</body>
+</html>
+<script>
+    import Buttons from "../../../static/BackEnd/pages/ui-features/buttons.html";
+
+    export default {
+        components: {Buttons}
+    }
+</script>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="BackEnd/includes/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>Lung-Hi Peace志工管理系統</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link th:href="@{/BackEnd/css/activityForm.css}" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<!-- _navbar -->
+<div th:include="BackEnd/includes/navbar :: navbar"></div>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.jsp -->
+    <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close ti-close"></i>
+        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="todo-tab"
+                                    data-bs-toggle="tab" href="#todo-section" role="tab"
+                                    aria-controls="todo-section" aria-expanded="true">TO DO LIST</a></li>
+            <li class="nav-item"><a class="nav-link" id="chats-tab"
+                                    data-bs-toggle="tab" href="#chats-section" role="tab"
+                                    aria-controls="chats-section">CHATS</a></li>
+        </ul>
+    </div>
+    <!-- partial -->
+    <!-- partial:partials/_sidebar.jsp -->
+    <div th:include="BackEnd/includes/sidebar :: sidebar"></div>
+    <!-- partial -->
+    <!-- 顯示區域從這開始 -->
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <!-- 上排按鈕 -->
+                <div class="d-sm-flex justify-content-between align-items-center  border-bottom">
+                    <!-- 拿掉justify-content-between，讓按鈕自動靠左 -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <!-- 這邊是空的用來排版 -->
+                    </ul>
+<!--                    <div>-->
+<!--                        <div class="btn-wrapper">-->
+<!--                            <button type="button" id="backbutton" class="btn btn-sm btn-outline-primary btn-fw"-->
+<!--                                    onclick="cancel()"><i-->
+<!--                                    class="fa-solid fa-circle-arrow-left"></i> 返回-->
+<!--                            </button>-->
+<!--                            <button type="button" id="oneClickEnter"-->
+<!--                                    class="btn btn-sm btn-outline-primary btn-fw"><i-->
+<!--                                    class="fa-solid fa-check"></i>一鍵輸入-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+                <!-- End of 上排按鈕 -->
+                <div class="col-md-6 grid-margin stretch-card container">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">新增志工活動</h4>
+                            <form action="#" id="form" class="forms-sample" th:action="@{/Backendactivity/saveActivity}" method="post"
+                                  enctype="multipart/form-data" th:object="${activity}">
+
+                                <div class="btn-wrapper">
+                                    <button type="button" id="oneClickEnter"
+                                            class="btn btn-sm btn-outline-primary btn-fw"><i
+                                            class="fa-solid fa-check"></i>一鍵輸入
+<!--                                        <button type="button" class="btn btn-light" onclick="quickData();">一鍵輸入</button>-->
+
+                                    </button>
+                                </div>
+                                <div class="form-group">
+                                    <i class="mdi mdi-newspaper"></i><label>活動標題</label>
+                                    <input type="text" th:field="*{ac_name}" class="form-control" id="ac_name" />
+                                </div>
+                                <div class="form-group">
+                                    <i class="mdi mdi-image"></i><label>活動照片</label>
+                                    <img id="blah" th:src="@{/BackEnd/images/memberHeadshot/defaultHeadshot.jpg}"
+                                         style="display:block;width: 50%"/>
+                                    <input type="file" name="image" class="form-control" id="localfileName" onchange="previewHeadshot(event)" />
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa-solid fa-calendar"></i><label>活動時間</label>
+                                    <input type="date" th:field="*{ac_date}" class="form-control" id="ac_date"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>活動簡介</label>
+                                    <textarea type="text" th:field="*{ac_participant}" class="form-control" id="ac_participant" style="width: 450px; height:100px"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>活動地點</label>
+                                    <input type="text" th:field="*{ac_venue}" class="form-control" id="ac_venue"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>活動名額</label>
+                                    <input type="text" th:field="*{ac_quota}" class="form-control" id="ac_quota" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>候補名額</label>
+                                    <input type="text" th:field="*{ac_waitlist_quota}" class="form-control" id="ac_waitlist_quota" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
+                                </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label>報名費用</label>-->
+<!--                                    <input type="text" th:field="*{ac_fee}" class="form-control" id="ac_fee"/>-->
+<!--                                </div>-->
+                                <div class="form-group">
+                                    <label>主辦單位</label>
+                                    <input type="text" th:field="*{ac_organizer}" class="form-control" id="ac_organizer"/>
+                                </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label> <span>活動狀態</span>-->
+<!--                                        <select th:field="*{getAcaudit}"-->
+<!--                                                class="js-example-basic-single w-100 select2-hidden-accessible"-->
+<!--                                                id="type">-->
+<!--                                            <option value="1">上架中</option>-->
+<!--                                            <option value="0">未上架</option>-->
+<!--                                        </select>-->
+<!--                                    </label>-->
+<!--                                </div>-->
+
+
+
+                                <button type="button" class="btn btn-warning me-2" onclick="add();"><i
+                                        class="bi bi-send"></i>送出
+                                </button>
+                                <button type="button" class="btn btn-light"><a class="nav-link" th:href="@{/Backendactivity/activitylist}">Cancel</a></button>
+<!--                                <button type="button" class="btn btn-light" onclick="cancel();">Cancel</button>-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- partial:partials/_footer.jsp -->
+<div th:include="BackEnd/includes/footer :: footer"></div>
+<!-- 主畫面結束 -->
+<!-- container-scroller -->
+
+<!-- Js匯入 -->
+<div th:include="BackEnd/includes/JavaScript :: JavaScript"></div>
+<!--<script type="text/javascript" th:src="@{/BackEnd/js/activityForm2.js}"></script>-->
+
+<script type="text/javascript">
+
+    const type = document.getElementById('type');
+    const ac_name = document.getElementById('ac_name');
+    // const image = document.getElementById('localfileName');
+    const ac_date = document.getElementById('ac_date');
+    const ac_participant = document.getElementById('ac_participant');
+    const ac_venue = document.getElementById('ac_venue');
+    const ac_quota = document.getElementById('ac_quota');
+    const ac_waitlist_quota = document.getElementById('ac_waitlist_quota');
+    // const ac_fee = document.getElementById('ac_fee');
+    const ac_organizer = document.getElementById('ac_organizer');
+
+    /*一鍵輸入*/
+    oneClickEnter.addEventListener('click', e => {
+        e.preventDefault();
+        oneClickToEnter();
+    });
+
+    /* 執行一鍵輸入*/
+    function oneClickToEnter(){
+        ac_name.value = '台中市動物保護志工招募';
+        // image.value = '可愛貓貓.jpg';
+        ac_date.value = '2022-01-01';
+        ac_participant.value = '關心動物保護議題，卻不知如何投入動物保護第一線嗎？台中動保處今年的志工招募活動開跑了!台中的朋友們可別錯過這個機會，服務內容包含推廣動物保護觀念、協助追蹤動保案件，以及照顧、陪伴園區內的犬貓，服務內容為協助動保處進行動物保護宣導活動、動保案件稽查，動物之家園區介紹導覽、照顧園內犬貓、推廣認領養等等。多元的服務內容，能讓大家發揮所長一同為動物盡一份力量！';
+        ac_venue.value = '地點';
+        ac_quota.value = '50';
+        ac_waitlist_quota.value = '0';
+        // ac_fee.value = '500';
+        ac_organizer.value = '主辦';
+        type.value = '0';
+
+    }
+
+    function quickData() {
+        // 各欄位預設內容
+        let id = [
+            '浪犬入侵騷擾遊客頻傳,花蓮婦幼親創園區架驅狗器',
+            '終養不棄養',
+            '推動大規模犬貓絕育計畫'
+        ];
+        let ac_venue = [
+            '浪犬入侵騷擾遊客頻傳,花蓮婦幼親創園區架驅狗器',
+            '終養不棄養',
+            '推動大規模犬貓絕育計畫'
+        ];
+        let ac_quota = [20, 50, 100];
+        let ac_waitlist_quota = [5, 10, 20];
+        // let ac_fee = [100, 200, 500];
+        let ac_participant = [
+            '花蓮婦幼親創園區於去底揭牌啟用後，由於鄰近環境多有草叢林木容易有遊蕩犬隻出沒，縣府農業處及社會處合作，在圍牆旁設置了10支驅狗器，避免因為遊蕩犬而導致人犬衝突。',
+            '毛孩飼養數已高過嬰兒出生率，不當棄養情形日漸衍生',
+            '透過推動大規模犬貓絕育行動，並搭配教育推廣及政策倡議，達到遊蕩犬貓族群控制的效果。台灣之心行動足跡遍布全台，深入到動物醫療資源缺乏的偏區及離島，為的就是解決這些地方的犬貓不斷繁殖生育的問題。'
+        ];
+        let ac_organizer = [
+            '花蓮婦幼親創園區於去底揭牌啟用後，由於鄰近環境多有草叢林木容易有遊蕩犬隻出沒，縣府農業處及社會處合作，在圍牆旁設置了10支驅狗器，避免因為遊蕩犬而導致人犬衝突。',
+            '毛孩飼養數已高過嬰兒出生率，不當棄養情形日漸衍生',
+            '透過推動大規模犬貓絕育行動，並搭配教育推廣及政策倡議，達到遊蕩犬貓族群控制的效果。台灣之心行動足跡遍布全台，深入到動物醫療資源缺乏的偏區及離島，為的就是解決這些地方的犬貓不斷繁殖生育的問題。'
+        ];
+        let titleIndex = Math.floor(Math.random() * 3); // 若有新增預設標題及內容, 這裡的數字也要修正成對應的數量
+        let now = new Date();
+        let nowYear = now.getFullYear();
+        let nowMonth = now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getMonth() + 1;
+        let nowDay = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
+        let today = nowYear + '-' + nowMonth + '-' + nowDay;
+        // 各個欄位給值
+        document.getElementById('ac_name').value = ac_name[titleIndex];
+        document.getElementById('ac_venue').value = ac_venue[titleIndex];
+        document.getElementById('ac_quota').value = ac_quota[titleIndex];
+        document.getElementById('ac_waitlist_quota').value = ac_waitlist_quota[titleIndex];
+        // document.getElementById('ac_fee').value = ac_fee[titleIndex];
+        document.getElementById('ac_participant').value = ac_participant[titleIndex];
+        document.getElementById('ac_organizer').value = ac_organizer[titleIndex];
+        document.getElementById('type').value = "0";
+        document.getElementById('ac_date').value = today;
+    }
+
+
+
+    // 顯示選取的照片
+    function previewHeadshot(event) {
+        /*
+        files = ['src']
+        法一:
+            const file = files[0] -> file = 'src'
+        法二:
+            const [file] = files -> file = 'src'
+        */
+        const [file] = document.getElementById("localfileName").files
+        if (file) {
+            document.getElementById("blah").src = URL.createObjectURL(file)
+        }
+    }
+
+    function cancel() {
+        window.location.href = "./activitylist"
+    }
+
+    function add() {
+        var form = document.getElementById("form").value;
+        var ac_name = document.getElementById("ac_name").value;
+        var localfileName = document.getElementById("localfileName").value;
+        var ac_date = document.getElementById("ac_date").value;
+        var ac_participant = document.getElementById("ac_participant").value;
+        var ac_venue = document.getElementById("ac_venue").value;
+        var ac_quota = document.getElementById("ac_quota").value;
+        var ac_waitlist_quota = document.getElementById("ac_waitlist_quota").value;
+        // var ac_fee = document.getElementById("ac_fee").value;
+        var ac_organizer = document.getElementById("ac_organizer").value;
+        if (ac_name == null || ac_name == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入活動標題！！',
+            })
+            return;
+        }
+        if (localfileName == null || localfileName == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入活動照片！！',
+            })
+            return;
+        }
+        if (ac_date == null || ac_date == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入活動時間！！',
+            })
+            return;
+        }
+        if (ac_participant == null || ac_participant == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入參加對象！！',
+            })
+            return;
+        }
+        if (ac_venue == null || ac_venue == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入活動地點！！',
+            })
+            return;
+        }
+        if (ac_quota == null || ac_quota == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入活動名額！！',
+            })
+            return;
+        }
+        if (ac_waitlist_quota == null || ac_waitlist_quota == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入候補名額！！',
+            })
+            return;
+        }
+        // if (ac_fee == null || ac_fee == '') {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: '請輸入報名費用！！',
+        //     })
+        //     return;
+        // }
+        if (ac_organizer == null || ac_organizer == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入主辦單位！！',
+            })
+            return;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "您將新增一筆活動",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '新增!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    '新增成功!',
+                    '您已成功新增一筆活動',
+                    'success'
+                )
+                var timeoutID = window.setTimeout((() => document.getElementById("form").submit()), 1000);
+            }
+        })
+
+    }
+    // const ac_name = document.getElementById('ac_name');
+    // const localfileName = document.getElementById('localfileName');
+    // const ac_date = document.getElementById('ac_date');
+    // const ac_participant = document.getElementById('ac_participant');
+    // const ac_venue = document.getElementById('ac_venue');
+    // const ac_quota = document.getElementById('ac_quota');
+    // const ac_waitlist_quota = document.getElementById('ac_waitlist_quota');
+    // const ac_fee = document.getElementById('ac_fee');
+    // const ac_organizer = document.getElementById('ac_organizer');
+
+    // /*一鍵輸入*/
+    // oneClickEnter.addEventListener('click', e => {
+    //     e.preventDefault();
+    //     oneClickToEnter();
+    // });
+    //
+    // /* 執行一鍵輸入*/
+    // function oneClickToEnter(){
+    //     /* 取消變顏色*/
+    //     let errorNodes = document.getElementsByClassName('form-group error');
+    //     let successNodes = document.getElementsByClassName('form-group success');
+    //     for(let i = 0 ; i<errorNodes.length ; i++){
+    //         errorNodes[i].className = 'form-group'
+    //     }
+    //     for(let i = 0 ; i<successNodes.length ; i++){
+    //         successNodes[i].className = 'form-group'
+    //     }
+    //
+    //     ac_name.value = '台中市動物保護志工招募';
+    //     localfileName.value = '可愛貓貓.jpg';
+    //     ac_date.value = '2022-01-01';
+    //     ac_participant.value = '關心動物保護議題，卻不知如何投入動物保護第一線嗎？台中動保處今年的志工招募活動開跑了!台中的朋友們可別錯過這個機會，服務內容包含推廣動物保護觀念、協助追蹤動保案件，以及照顧、陪伴園區內的犬貓，服務內容為協助動保處進行動物保護宣導活動、動保案件稽查，動物之家園區介紹導覽、照顧園內犬貓、推廣認領養等等。多元的服務內容，能讓大家發揮所長一同為動物盡一份力量！';
+    //     ac_venue.value = '地點';
+    //     ac_quota.value = '50';
+    //     ac_waitlist_quota.value = '0';
+    //     ac_fee.value = '500';
+    //     ac_organizer.value = '主辦';
+    //     type.value = '0';
+    //
+    //     /* 重新把success加上去 */
+    //     let nodes = document.getElementsByClassName('form-group');
+    //     for(let i = 0 ; i<nodes.length ; i++){
+    //         nodes[i].className = 'form-group success'
+    //     }
+    //
+    // }
+
+</script>
+</body>
+</html>

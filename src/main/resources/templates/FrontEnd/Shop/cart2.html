@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="FrontEnd/includes/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>Lung-Hi Peace</title>
+</head>
+<body onload="getCartDate()">
+<!-- _navbar -->
+<div th:include="FrontEnd/includes/navbar :: navbar"></div>
+<!--主畫面開始-->
+<!-- 商品Title -->
+<!-- Breadcrumb Area Start -->
+<div class="section breadcrumb-area bg-name-bright">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="breadcrumb-wrapper">
+                    <h2 class="breadcrumb-title">購物車</h2>
+                    <ul>
+                        <li>請確認商品內容</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End -->
+
+<!-- Shopping Cart Section Start -->
+<div class="section section-margin" th:each="item : ${cart.cart.values()}" >
+    <div class="container" id="cart">
+
+<!--        <div class="row">-->
+<!--            <div class="col-12">-->
+
+<!--                &lt;!&ndash; Cart Table Start &ndash;&gt;-->
+<!--                <div class="cart-table table-responsive">-->
+<!--                    <table class="table table-bordered">-->
+
+<!--                        &lt;!&ndash; Table Head Start &ndash;&gt;-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th class="pro-title">商品</th>-->
+<!--                            <th class="pro-price">金額</th>-->
+<!--                            <th class="pro-quantity">數量</th>-->
+<!--                            <th class="pro-subtotal">總金額</th>-->
+<!--                            <th class="pro-remove">移除購物車</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        &lt;!&ndash; Table Head End &ndash;&gt;-->
+
+<!--                        &lt;!&ndash; Table Body Start &ndash;&gt;-->
+<!--                        <tbody >-->
+<!--                        <tr >-->
+<!--                            <input class="product-id" type="hidden" th:value="${item.productId}" >-->
+<!--                            <td class="pro-title"><a href="#">[[${item.productName}]]</a>-->
+<!--                            </td>-->
+<!--                            <td class="pro-price"><span>$ [[${item.price}]]</span></td>-->
+<!--                            <td class="pro-quantity">-->
+<!--                                <form action="/Lung/Front/updateShoppingCart" method="post">-->
+<!--                                    <div class="quantity">-->
+<!--                                        <div class="cart-plus-minus">-->
+<!--                                            <input class="cart-plus-minus-box" value="1" type="text" name="quantity"-->
+<!--                                                   th:value="${item.qty}"-->
+<!--                                                   th:attr="max=${item.qty}">-->
+<!--                                            <div class="dec qtybutton">-</div>-->
+<!--                                            <div class="inc qtybutton">+</div>-->
+<!--                                            <button type="submit">check</button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+<!--                            </td>-->
+
+<!--                            <td class="pro-subtotal">-->
+<!--                                <span>$ [[${item.price}*${item.qty}]]</span>-->
+<!--                            </td>-->
+<!--                            <td class="pro-remove"><a href=""><i-->
+<!--                                    class="ti-trash"></i></a>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+
+<!--                        </tbody>-->
+<!--                        &lt;!&ndash; Table Body End &ndash;&gt;-->
+
+<!--                    </table>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; Cart Table End &ndash;&gt;-->
+
+<!--                &lt;!&ndash; Cart Button Start &ndash;&gt;-->
+<!--                <div class="cart-button-section m-b-n20">-->
+
+<!--                    &lt;!&ndash; Cart Button left Side Start &ndash;&gt;-->
+<!--                    <div class="cart-btn-lef-side m-b-20">-->
+<!--                        <a href="/Lung/Front/products" class="btn btn btn-gray-deep btn-hover-primary">繼續購物</a>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Cart Button left Side End &ndash;&gt;-->
+
+<!--                    &lt;!&ndash; Cart Button Right Side Start &ndash;&gt;-->
+<!--                    <div class="cart-btn-right-right m-b-20">-->
+<!--                        <a th:href="@{/Front/clearShoppingCart}"-->
+<!--                           class="btn btn btn-gray-deep btn-hover-primary">清除購物車</a>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Cart Button Right Side End &ndash;&gt;-->
+
+<!--                </div>-->
+<!--                &lt;!&ndash; Cart Button End &ndash;&gt;-->
+
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row m-t-50">-->
+<!--            <div class="col-lg-6 me-0 ms-auto">-->
+
+<!--                &lt;!&ndash; Cart Calculation Area Start &ndash;&gt;-->
+<!--                <div class="cart-calculator-wrapper">-->
+
+<!--                    &lt;!&ndash; Cart Calculate Items Start &ndash;&gt;-->
+<!--                    <div class="cart-calculate-items">-->
+
+<!--                        &lt;!&ndash; Cart Calculate Items Title Start &ndash;&gt;-->
+<!--                        <h3 class="title">購物車金額</h3>-->
+<!--                        &lt;!&ndash; Cart Calculate Items Title End &ndash;&gt;-->
+
+<!--                        &lt;!&ndash; Responsive Table Start &ndash;&gt;-->
+<!--                        <div class="table-responsive">-->
+<!--                            <table class="table">-->
+<!--                                &lt;!&ndash;                                <tr>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    <td>Sub Total</td>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    <td>$230</td>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                </tr>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                <tr>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    <td>Shipping</td>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    <td>$70</td>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                </tr>&ndash;&gt;-->
+<!--                                <tr class="total">-->
+<!--                                    <td>總金額</td>-->
+<!--                                    <td class="total-amount">$[[${cart.total}]]</td>-->
+<!--                                </tr>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; Responsive Table End &ndash;&gt;-->
+
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Cart Calculate Items End &ndash;&gt;-->
+
+<!--                    &lt;!&ndash; Cart Checktout Button Start &ndash;&gt;-->
+<!--                    <a th:href="@{/Front/orders}" class="btn btn btn-gray-deep btn-hover-primary m-t-30">結帳</a>-->
+<!--                    &lt;!&ndash; Cart Checktout Button End &ndash;&gt;-->
+
+<!--                </div>-->
+<!--                &lt;!&ndash; Cart Calculation Area End &ndash;&gt;-->
+
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+<!--</div>-->
+
+
+<!-- Breadcrumb Area End -->
+<div th:include="BackEnd/includes/footer :: footer"></div>
+
+
+<!-- Mobile Menu Start -->
+<div class="mobile-menu-wrapper">
+    <div class="offcanvas-overlay"></div>
+
+    <!-- Mobile Menu Inner Start -->
+    <div class="mobile-menu-inner">
+
+        <!-- Button Close Start -->
+        <div class="offcanvas-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        <!-- Button Close End -->
+
+        <!-- Mobile Menu Inner Wrapper Start -->
+        <div class="mobile-menu-inner-wrapper">
+            <!-- Mobile Menu Search Box Start -->
+            <div class="search-box-offcanvas">
+                <form>
+                    <input class="search-input-offcanvas" type="text" placeholder="Search product...">
+                    <button class="search-btn"><i class="icon-magnifier"></i></button>
+                </form>
+            </div>
+            <!-- Mobile Menu Search Box End -->
+
+            <!-- Mobile Menu Start -->
+            <div class="mobile-navigation">
+                <nav>
+                    <ul class="mobile-menu">
+                        <li class="has-children">
+                            <a href="#">Home <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="index.html">Home One</a></li>
+                                <li><a href="index-2.html">Home Two</a></li>
+                                <li><a href="index-3.html">Home Three</a></li>
+                                <li><a href="index-4.html">Home Four</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Shop <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="shop.html">Shop Grid</a></li>
+                                <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
+                                <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
+                                <li><a href="shop-list-fullwidth.html">Shop List Fullwidth</a></li>
+                                <li><a href="shop-list-left-sidebar.html">Shop List Left Sidebar</a></li>
+                                <li><a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a></li>
+                                <li><a href="wishlist.html">Wishlist</a></li>
+                                <li><a href="cart.html">Shopping Cart</a></li>
+                                <li><a href="checkout.html">Checkout</a></li>
+                                <li><a href="compare.html">Compare</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Product <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="single-product.html">Single Product</a></li>
+                                <li><a href="single-product-sale.html">Single Product Sale</a></li>
+                                <li><a href="single-product-group.html">Single Product Group</a></li>
+                                <li><a href="single-product-normal.html">Single Product Normal</a></li>
+                                <li><a href="single-product-affiliate.html">Single Product Affiliate</a></li>
+                                <li><a href="single-product-slider.html">Single Product Slider</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Pages <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="faq.html">Faq</a></li>
+                                <li><a href="error-404.html">Error 404</a></li>
+                                <li><a href="my-account.html">My Account</a></li>
+                                <li><a href="login.html">Login | Register</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#">Blog <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
+                                <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
+                                <li><a href="blog-details.html">Blog Details</a></li>
+                                <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Mobile Menu End -->
+
+            <!-- Language, Currency & Link Start -->
+            <div class="offcanvas-lag-curr m-b-30">
+                <div class="header-top-lan-curr-link">
+                    <div class="header-top-lan dropdown">
+                        <h4 class="title">Language:</h4>
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown">English <i
+                                class="fa fa-angle-down"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                            <li><a class="dropdown-item" href="#">Japanese</a></li>
+                            <li><a class="dropdown-item" href="#">Arabic</a></li>
+                            <li><a class="dropdown-item" href="#">Romanian</a></li>
+                        </ul>
+                    </div>
+                    <div class="header-top-curr dropdown">
+                        <h4 class="title">Currency:</h4>
+                        <button class="dropdown-toggle" data-bs-toggle="dropdown">USD <i
+                                class="fa fa-angle-down"></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a class="dropdown-item" href="#">USD</a></li>
+                            <li><a class="dropdown-item" href="#">Pound</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Language, Currency & Link End -->
+
+            <!-- Contact Links/Social Links Start -->
+            <div class="mt-auto bottom-0">
+
+                <!-- Contact Links Start -->
+                <ul class="contact-links">
+                    <li><i class="fa fa-phone"></i><a href="#"> +012 3456 789</a></li>
+                    <li><i class="fa fa-envelope-o"></i><a href="#"> info@example.com</a></li>
+                    <li><i class="fa fa-clock-o"></i> <span>Monday - Sunday 9.00 - 18.00</span></li>
+                </ul>
+                <!-- Contact Links End -->
+
+                <!-- Social Widget Start -->
+                <div class="widget-social">
+                    <a title="Facebook" href="#"><i class="fa fa-facebook-f"></i></a>
+                    <a title="Twitter" href="#"><i class="fa fa-twitter"></i></a>
+                    <a title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+                    <a title="Youtube" href="#"><i class="fa fa-youtube"></i></a>
+                    <a title="Vimeo" href="#"><i class="fa fa-vimeo"></i></a>
+                </div>
+                <!-- Social Widget Ende -->
+            </div>
+            <!-- Contact Links/Social Links End -->
+        </div>
+        <!-- Mobile Menu Inner Wrapper End -->
+
+    </div>
+    <!-- Mobile Menu Inner End -->
+</div>
+<div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
+<!-- Blog Section End -->
+<script>
+
+    function getCartDate(data){
+        fetch('[[@{/Carts}]]')
+            .then(response => response.json())
+            .then(function (cart) {
+                getDataFormJosn(cart)
+
+            });
+    }
+    function getDataFormJosn(cart) {
+
+
+        data = `        <div class="row">
+<div class="col-12">
+    <div class="cart-table table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="pro-title">商品</th>
+                <th class="pro-price">金額</th>
+                <th class="pro-quantity">數量</th>
+                <th class="pro-subtotal">小計</th>
+                <th>移除購物車</th>
+            </tr>
+            </thead>
+            <tbody>`;
+        Object.values(cart.cart).forEach(val => {
+            data+= `<tr>
+                <input class="product-id" type="hidden" value="${val.productId}" >
+                <td class="shoping__cart__item product-name">
+                    <h5>${val.productName}</h5>
+                </td>
+                <td class="shoping__cart__price product-price">
+                    NT$${val.price}
+                </td>
+                <td class="shoping__cart__quantity product-qty">
+                    <div class="quantity">
+                        <div class="pro-qty">
+                            <input name="qty" type="text" value="${val.qty}">
+                        </div>
+                    </div>
+                </td>
+                <td class="shoping__cart__total product-subTotal">
+                    NT$${val.subTotal}
+                </td>
+                <td class="shoping__cart__item__close">
+                    <span class="icon_close" onclick="remove('${val.productId}')"> <i
+                                    class="ti-trash"></i></span>
+                </td>
+            </tr>`;
+        });
+
+        data+= `
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+         <div class="cart-button-section m-b-n20">
+
+                    <!-- Cart Button left Side Start -->
+                    <div class="cart-btn-lef-side m-b-20">
+                        <a href="/Lung/Front/products" class="btn btn btn-gray-deep btn-hover-primary">繼續購物</a>
+                    </div>
+         </div>
+        <div class="row m-t-50">
+            <div class="col-lg-6 me-0 ms-auto" >
+                <div class="shoping__checkout cart-calculator-wrapper">
+                    <div class="cart-calculate-items">
+                        <h3 class="title">購物車金額</h3>
+                            <div class="table-responsive">
+                            <table class="table">
+                                <tr class="total">
+                                    <td>總金額</td>
+                                    <td class="total-amount"><span id="total">NT$${cart.total}</span></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    <a href="#" class="btn btn btn-gray-deep btn-hover-primary m-t-30" onclick="checkout()">結帳</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        `
+        $('#cart').html(data)
+
+        var proQty = $('.pro-qty');
+        proQty.prepend('<span class="dec qtybtn">-</span>');
+        proQty.append('<span class="inc qtybtn">+</span>');
+        proQty.on('click', '.qtybtn', function () {
+            var $button = $(this);
+            var oldValue = $button.parent().find('input').val();
+            let price = $button.parent().parent().parent().parent().children('.product-price')[0].innerText.replace('NT$','');
+            let subTotal = $button.parent().parent().parent().parent().children('.product-subTotal');
+            let id = $button.parent().parent().parent().parent().children('.product-id').val();
+            console.log(id)
+            if ($button.hasClass('inc')) {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                // Don't allow decrementing below zero
+                if (oldValue > 0) {
+                    var newVal = parseFloat(oldValue) - 1;
+                } else {
+                    newVal = 0;
+                }
+            }
+            subTotal.html('NT$' + newVal*price);
+            $button.parent().find('input').val(newVal);
+            update(id, newVal)
+        });
+
+    }
+
+    function update(id, qty) {
+        fetch("/Lung/Carts/Update?itemNo=" + id + '&qty=' + qty).then(response => response.json())
+            .then(function (data) {
+                getDataFormJosn(data)
+            })
+    }
+
+    function remove(id) {
+        Swal.fire({
+            title: '確定從購物車移除嗎？',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonColor: '#984B4B',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("/Lung/Carts/Remove?itemNo=" + id).then(response => response.json())
+                    .then(function (data) {
+                        getDataFormJosn(data)
+                    })
+            }
+        })
+    }
+    function checkout() {
+        let total = parseInt($('#total').text().slice(3));
+        console.log('total=' + total)
+        if (total > 0) {
+            location.href = './CheckOut'
+        } else {
+            Swal.fire(
+                '購物車沒有商品，無法結帳！',
+                '',
+                'warning'
+            )
+        }
+
+    }
+</script>
+</body>
+</html>

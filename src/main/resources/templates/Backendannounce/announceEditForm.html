@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="BackEnd/includes/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>Lung-Hi Peace公告管理系統</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- announcementFormCSS -->
+<!--    <link href="${pageContext.request.contextPath}/URLToReachResourcesFolder/css/announcementForm.css" rel="stylesheet"/>-->
+</head>
+<body>
+<!-- _navbar -->
+<div th:include="BackEnd/includes/navbar :: navbar"></div>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.jsp -->
+    <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close ti-close"></i>
+        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="todo-tab"
+                                    data-bs-toggle="tab" href="#todo-section" role="tab"
+                                    aria-controls="todo-section" aria-expanded="true">TO DO LIST</a></li>
+            <li class="nav-item"><a class="nav-link" id="chats-tab"
+                                    data-bs-toggle="tab" href="#chats-section" role="tab"
+                                    aria-controls="chats-section">CHATS</a></li>
+        </ul>
+    </div>
+    <!-- partial -->
+    <!-- partial:partials/_sidebar.jsp -->
+    <div th:include="BackEnd/includes/sidebar :: sidebar"></div>
+    <!-- partial -->
+    <!-- 顯示區域從這開始 -->
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card container">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Edit Announce</h4>
+                            <form action="#" id="form" class="forms-sample" th:action="@{/saveAnnounce}"
+                                  method="post"
+                                  th:object="${announce}">
+
+                                <input type="hidden" th:field="*{anNo}"/>
+                                <input type="hidden" th:field="*{anPhoto}"/>
+<!--                                <input th:field=“*{anPhoto}” type="hidden"/>-->
+                                <div  class="form-group">
+                                    <label>公告圖片</label>
+                                    <input type="file" name="image" accept="image/png, image/jpeg" />
+                                    <img style="width: 400px;" class="fit-image" th:src="@{${'/FrontEnd/assets/images/announce/' + announce.anPhoto}}" alt="Blog Image">
+                                </div>
+                                <div class="form-group">
+                                    <label>公告標題</label>
+                                    <input type="text" th:field="*{anTitle}" class="form-control" id="anTitle"/>
+                                </div>
+                                <div class="form-group">
+                                        <label>公告內容</label>
+<!--                                        <input type="text" th:field="*{anContent}" class="form-control" id="anContent" style="width: 500px; height:100px"/>-->
+                                        <textarea th:field="*{anContent}" class="form-control" id="anContent" style="width: 450px; height:100px"></textarea>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label> <span>公告類型</span>
+                                        <select th:field="*{anType}" class="js-example-basic-single w-100 select2-hidden-accessible" id="anType">
+                                            <option value="">請選擇</option>
+                                            <option value="新聞">新聞</option>
+                                            <option value="教育">教育</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label> <span>編輯者</span>
+                                        <select th:field="*{anEditor}"
+                                                class="js-example-basic-single w-100 select2-hidden-accessible"
+                                                id="anEditor">
+                                            <option value="">請選擇</option>
+                                            <option value="亭妤">亭妤</option>
+                                            <option value="鴻銘">鴻銘</option>
+                                            <option value="毓蓉">毓蓉</option>
+                                            <option value="容緯">容緯</option>
+                                            <option value="奕成">奕成</option>
+                                            <option value="鄭漢">鄭漢</option>
+                                        </select>
+                                    </label></div>
+                                <div class="form-group">
+                                    <label>公告日期</label>
+                                    <input type="date" th:field="*{anDate}" class="form-control" id="anDate"/>
+<!--                                    <input th:field="*{anDate}" type="date" class="form-control" id="anDate"-->
+<!--                                            autocomplete="off" />-->
+                                </div>
+
+                                <button type="button" class="btn btn-warning me-2" onclick="add();"><i
+                                        class="bi bi-send"></i>送出
+                                </button>
+
+
+
+
+
+                                <button type="button" class="btn btn-light" onclick="cancel();">取消</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- partial:partials/_footer.jsp -->
+<div th:include="BackEnd/includes/footer :: footer"></div>
+<!-- 主畫面結束 -->
+<!-- container-scroller -->
+
+<!-- Js匯入 -->
+<div th:include="BackEnd/includes/JavaScript :: JavaScript"></div>
+<script type="text/javascript">
+    function cancel() {
+        window.location.href = "../announcelist"
+    }
+
+    function add() {
+        var form = document.getElementById("form").value;
+        // var anPhoto = document.getElementById("anPhoto").value;
+        var anTitle = document.getElementById("anTitle").value;
+        var anContent = document.getElementById("anContent").value;
+        var anType = document.getElementById("anType").value;
+        var anEditor = document.getElementById("anEditor").value;
+        var anDate = document.getElementById("anDate").value;
+        if (anPhoto == null || anPhoto == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入公告圖片！！',
+            })
+            return;
+        }
+        if (anTitle == null || anTitle == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入公告標題！！',
+            })
+            return;
+        }
+        if (anContent == null || anContent == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入公告類型！！',
+            })
+            return;
+        }
+        if (anType == null || anType == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入公告類型！！',
+            })
+            return;
+        }
+        if (anEditor == null || anEditor == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入編輯者！！',
+            })
+            return;
+        }
+        if (anDate == null || anDate == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入日期！！',
+            })
+            return;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "您將修改一筆公告",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '確認!',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: '取消!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    '修改成功!',
+                    '您已成功修改一筆公告',
+                    'success'
+                )
+                var timeoutID = window.setTimeout((() => document.getElementById("form").submit()), 1000);
+            }
+        })
+
+    }
+</script>
+</body>
+</html>

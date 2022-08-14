@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lung-Hi Peace棄養管理系統</title>
+    <link href="BackEnd/css/dataTable.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+</head>
+
+<body>
+<canvas id="chart" width="800" height="600"></canvas>
+
+
+<!-- _navbar -->
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.jsp -->
+    <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close ti-close"></i>
+        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="todo-tab"
+                                    data-bs-toggle="tab" href="#todo-section" role="tab"
+                                    aria-controls="todo-section" aria-expanded="true">TO DO LIST</a></li>
+            <li class="nav-item"><a class="nav-link" id="chats-tab"
+                                    data-bs-toggle="tab" href="#chats-section" role="tab"
+                                    aria-controls="chats-section">CHATS</a></li>
+        </ul>
+    </div>
+    <!-- partial -->
+    <!-- partial:partials/_sidebar.jsp -->
+    <!-- partial -->
+    <!-- 顯示區域從這開始 -->
+
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.jsp -->
+            <div th:include="BackEnd/includes/footer :: footer"></div>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- 主畫面結束 -->
+<!-- container-scroller -->
+
+<!-- Js匯入 -->
+<!-- plugins:js -->
+<!-- End custom js for this page-->
+
+<!-- 寫自己的Js -->
+<script type="text/javascript">
+    var ctx = document.getElementById('chart').getContext('2d');
+
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["混種貓","緬因貓","金絲貓","混種狗","摺耳貓","哈士奇"],
+            datasets: [{
+                label: '# of Votes',
+                data: [26, 19, 21,15,16,13],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="shortcut icon" href="BackEnd/images/favicon.ico"/>
+    <link th:href="@{/BackEnd/css/login.css}" rel="stylesheet" type="text/css">
+    <script src="https://kit.fontawesome.com/ae6733f6ec.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>LungHi Peace登入系統</title>
+</head>
+<body>
+<div class="container">
+    <form action="#" class="form" id="login" method="post" th:action="@{/loginPage}">
+        <img class="form_pic" th:src="@{/BackEnd/images/login.png}" alt="">
+        <!--        <img class="form_pic" src="BackEnd/images/LOGO.png" alt="" width="60%">-->
+        <h1 class="form__title">Login</h1>
+        <div class="form__message form__message--error" th:text="${errormsg}"></div>
+        <div class="form__input-group">
+            <input type="text" class="form__input" autofocus placeholder="Username" id="username" name="username"
+                   autocomplete="off">
+            <div class="form__input-error-message"></div>
+        </div>
+        <div class="form__input-group">
+            <input type="password" class="form__input" autofocus placeholder="Password" id="password" name="password">
+            <i class="fa-solid fa-eye" id="togglePassword"></i>
+            <div class="form__input-error-message"></div>
+        </div>
+        <button class="form__button" type="submit" value="login">登入</button>
+
+    </form>
+</div>
+<!--<script type="text/javascript" th:src="@{/BackEnd/js/login.js}"></script>-->
+<script type="text/javascript">
+    //轉換eye -> 顯示密碼
+    let togglePassword = document.querySelector("#togglePassword");
+    let password = document.querySelector("#password");
+    togglePassword.addEventListener('click', function () {
+        // 判斷password 還是text
+        let type = password.getAttribute('type') === 'password' ? 'text' : 'password';  //三元運算式，把抓到的type存回type
+        password.setAttribute('type', type);  //改變type
+        this.classList.toggle('fa-eye-slash'); //轉換眼睛圖示
+        password.focus();
+    });
+
+</script>
+</body>
+</html>

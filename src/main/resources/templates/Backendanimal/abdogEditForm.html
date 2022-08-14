@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="BackEnd/includes/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>Lung-Hi Peace棄養管理系統</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+<!-- _navbar -->
+<div th:include="BackEnd/includes/navbar :: navbar"></div>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.jsp -->
+    <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close ti-close"></i>
+        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="todo-tab"
+                                    data-bs-toggle="tab" href="#todo-section" role="tab"
+                                    aria-controls="todo-section" aria-expanded="true">TO DO LIST</a></li>
+            <li class="nav-item"><a class="nav-link" id="chats-tab"
+                                    data-bs-toggle="tab" href="#chats-section" role="tab"
+                                    aria-controls="chats-section">CHATS</a></li>
+        </ul>
+    </div>
+    <!-- partial -->
+    <!-- partial:partials/_sidebar.jsp -->
+    <div th:include="BackEnd/includes/sidebar :: sidebar"></div>
+    <!-- partial -->
+    <!-- 顯示區域從這開始 -->
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card container">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Edit abdog</h4>
+                            <form action="#" id="form" class="forms-sample" th:action="@{/Backendanimal/saveAbDog}"
+                                  enctype="multipart/form-data"
+                                  method="post"
+                                  th:object="${abdog}">
+                                <input type="hidden" th:field="*{abid}">
+
+                                <div class="form-group">
+                                    <label> <span>種類</span>
+                                        <select th:field="*{abtype}" class="js-example-basic-single w-100 select2-hidden-accessible" id="ab_type">
+                                            <option value="貓">貓</option>
+                                            <option value="狗">狗</option>
+                                            <option value="其他">其他</option>
+                                        </select>
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label> <span>品種</span>
+                                        <select th:field="*{abvariety}" class="js-example-basic-single w-100 select2-hidden-accessible" id="ab_variety">
+                                            <option value="混種貓">混種貓</option>
+                                            <option value="暹羅貓">暹羅貓</option>
+                                            <option value="布偶貓">布偶貓</option>
+                                            <option value="金絲貓">金絲貓</option>
+                                            <option value="緬因貓">緬因貓</option>
+                                            <option value="加菲貓">加菲貓</option>
+                                            <option value="折耳貓">折耳貓</option>
+                                            <option value="混種狗">混種狗</option>
+                                            <option value="米格魯">米格魯</option>
+                                            <option value="哈士奇">哈士奇</option>
+                                            <option value="柯基">柯基</option>
+                                            <option value="柴犬">柴犬</option>
+                                            <option value="黃金獵犬">黃金獵犬</option>
+                                            <option value="貴賓犬">貴賓犬</option>
+                                            <option value="高山犬">高山犬</option>
+                                            <option value="寵物鼠">寵物鼠</option>
+                                            <option value="寵物兔">寵物兔</option>
+
+                                        </select>
+
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label> <span>性別</span>
+                                        <select th:field="*{absex}" class="js-example-basic-single w-100 select2-hidden-accessible" id="ab_sex">
+                                            <option value="公">公</option>
+                                            <option value="母">母</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>Photos: </label>
+                                    <input type="file" name="image" accept="image/png, image/jpeg" />
+                                    <!-- <input type="text" th:field="*{abphonto}" class="form-control" id="abphonto"/>-->
+                                </div>
+
+                                <br/>
+
+                                <div class="form-group">
+                                    <label>帳戶名稱</label>
+                                    <input type="text" th:field="*{abarea}" class="form-control" id="ab_area"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>收容所地址</label>
+                                    <input type="text" th:field="*{abname}" class="form-control" id="ab_name"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>電話</label>
+                                    <input type="text" th:field="*{abphone}" class="form-control" id="ab_phone"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>收容所信箱</label>
+                                    <input type="text" th:field="*{abemail}" class="form-control" id="ab_email"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>日期</label>
+                                    <input type="date" th:field="*{abdate}" class="form-control" id="ab_date"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>描述</label>
+                                    <input type="text" th:field="*{abremark}" class="form-control" id="ab_remark"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label> <span>狀態</span>
+                                        <select th:field="*{abaudit}" class="js-example-basic-single w-100 select2-hidden-accessible" id="ab_audit">
+                                            <option value=0>審核通過</option>
+                                            <option value=1>審核中</option>
+                                        </select>
+                                    </label>
+                                </div>
+
+                                <button type="button" class="btn btn-warning me-2" onclick="add();"><i
+                                        class="bi bi-send"></i>送出
+                                </button>
+                                <button type="button" class="btn btn-light" onclick="cancel();">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- partial:partials/_footer.jsp -->
+<div th:include="BackEnd/includes/footer :: footer"></div>
+<!-- 主畫面結束 -->
+<!-- container-scroller -->
+
+<!-- Js匯入 -->
+<div th:include="BackEnd/includes/JavaScript :: JavaScript"></div>
+<script type="text/javascript">
+    function cancel() {
+        window.location.href = "../abdoglist"
+    }
+
+    function add(){
+        var form = document.getElementById("form").value;
+        var ab_name = document.getElementById("ab_name").value;
+        var ab_phone = document.getElementById("ab_phone").value;
+        var ab_email = document.getElementById("ab_email").value;
+
+        if (ab_name == null || ab_name == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入收容所地址！！',
+            })
+            return;
+        }
+
+        if (ab_phone == null || ab_phone == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入電話！！',
+            })
+            return;
+        }
+
+        if (ab_email == null || ab_email == ''){
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入信箱！！',
+            })
+            return;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "您將修改寵物資料",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '修改!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    '修改成功!',
+                    '您已成功修改一筆資料',
+                    'success'
+                )
+                var timeoutID = window.setTimeout((() => document.getElementById("form").submit()), 1000);
+            }
+        })
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<header th:fragment="navbar">
+    <div id="demo">
+        <img th:src="@{/FrontEnd/assets/images/logo/Catmini.png}">
+    </div>
+    <!-- Header Bottom Start -->
+    <div class="header-bottom">
+        <div class="header-sticky">
+            <div class="container">
+                <div class="row align-items-center position-relative">
+
+                    <!-- Header Logo Start -->
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <div class="header-logo">
+                            <a href="/Lung/Front"><img th:src="@{/FrontEnd/assets/images/logo/logo.png}"
+                                                       alt="Site Logo"/></a>
+                        </div>
+                    </div>
+                    <!-- Header Logo End -->
+
+                    <!-- Header Menu Start -->
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <div class="main-menu">
+                            <ul>
+                                <li class="has-children">
+                                    <a href="#">關於我們</a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="#">協會宗旨</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/Front/aboutUs}">關於我們</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="has-children position-static">
+                                    <a href="#">商品</a>
+                                    <ul class="mega-menu">
+                                        <li class="mega-menu-col">
+                                            <h4 class="mega-menu-title">品項</h4>
+                                            <ul class="m-b-n10">
+                                                <li><a th:href="@{/Front/products}">食品</a></li>
+                                                <li><a th:href="@{/Front/producttoy}">玩具</a></li>
+                                                <li><a href="shop-right-sidebar.html">日常用品</a></li>
+                                                <li><a href="shop-list-fullwidth.html">衣飾</a></li>
+                                                <li><a href="shop-list-left-sidebar.html">大型家具</a></li>
+                                                <li><a href="shop-list-right-sidebar.html">營養補給品</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+
+
+                                <li class="has-children">
+                                    <a href="#">認養/棄養</a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a th:href="@{/FrontEndAnimalF/animals}">認領養</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/FrontEndAnimalF/animalForm}">填寫寵物表單 </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="has-children">
+                                    <a href="#">志工活動</a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a th:href="@{/Frontendactivity/activities}">所有活動</a>
+                                        </li>
+                                        <li><a href="#">台北</a></li>
+                                        <li><a href="#">新北</a></li>
+                                        <li><a href="#">桃園</a></li>
+                                        <li><a href="#">新竹</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-children"><a th:href="@{/announcelist2}">公告</a>
+                                    <!--                                    <ul class="sub-menu">-->
+                                    <!--                                        <li><a href="blog.html">Blog</a></li>-->
+                                    <!--                                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>-->
+                                    <!--                                        <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>-->
+                                    <!--                                        <li><a href="anblog-details.html">Blog Details</a></li>-->
+                                    <!--                                        <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>-->
+                                    <!--                                    </ul>-->
+                                </li>
+                                <!--                                <li class="has-children">-->
+                                <!--                                    <a href="#">捐款支持</a>-->
+                                <!--                                    <ul class="sub-menu">-->
+                                <!--                                        <li><a href="blog.html">Blog</a></li>-->
+                                <!--                                        <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>-->
+                                <!--                                        <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>-->
+                                <!--                                        <li><a href="blog-details.html">Blog Details</a></li>-->
+                                <!--                                        <li><a href="blog-details-sidebar.html">Blog Details Sidebar</a></li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </li>-->
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Header Menu End -->
+
+                    <!-- Header Action Start -->
+                    <div class="col-lg-3 col-md-8 col-6">
+                        <div class="header-actions">
+
+
+                            <!-- Header My Account Button Start -->
+                            <div class="header-action-btn header-action-btn-cart d-none d-sm-flex">
+                                <a id="navbarHeadshot" class="account-visible" href="javascript:void(0)">
+                                    <img class="img-sm rounded-circle" th:src="@{/memberInfo/getCurrentUserImage}">
+                                    <!--                                        <span class="header-action-num">1</span>-->
+                                </a>
+                                <!-- Header Account Content Start -->
+                                <div class="header-account-content">
+                                    <!-- Cart Product Button Start -->
+                                    <div id="refreshNavbarUserButton" class="cart-account-btn m-t-20">
+                                        <span style="display: flex; line-height:20px;">
+                                            <span id="navbarMemberCenterNameFront"
+                                                  style="justify-content: center;align-items: center; margin:1px 1px 1px 4px; font-family: 'Montserrat','Roboto',sans-serif; font-size: 18px; font-weight:bold;"></span>
+                                            <span style="justify-content: center;align-items: center; margin:1px 1px; font-family: 'Montserrat','Roboto',sans-serif; font-size: 18px; font-weight:bold;">您好!</span>
+                                        </span>
+                                        <a id="navbarLoginBtn" th:href="@{/loginPage}"
+                                           class="btn btn-outline-light btn-hover-primary w-100 m-t-20"><i
+                                                class="fa-solid fa-right-to-bracket"></i><span
+                                                style="margin:0 8px">登入</span></a>
+                                        <a id="navbarMemberCenterBtn" th:href="@{/FrontMember/my-account-home}"
+                                           class="btn btn-outline-light btn-hover-primary w-100 m-t-20"><i
+                                                class="fa-solid fa-address-book"></i><span
+                                                style="margin:0 8px">會員中心</span></a>
+                                        <a id="navbarLogoutBtn" th:href="@{/logout}"
+                                           class="btn btn-outline-light btn-hover-primary w-100 m-t-20"><i
+                                                class="fa-solid fa-right-from-bracket"></i><span
+                                                style="margin:0 8px">登出</span></a>
+                                    </div>
+                                </div>
+                                <!-- Header Account Content End -->
+                            </div>
+                            <!-- Header My Account Button End -->
+
+                            <!-- Header Action Button Start -->
+                            <div class="header-action-btn header-action-btn-cart d-none d-sm-flex">
+                                <a class="cart-visible" href="javascript:void(0)">
+                                    <i class="icon-handbag icons"></i>
+                                </a>
+                                <!-- Header Cart Content Start -->
+                                <div class="header-cart-content">
+
+                                    <!-- Cart Procut Wrapper Start  -->
+                                    <div class="cart-product-wrapper">
+
+                                        <!--                                        &lt;!&ndash; Cart Product/Price Start &ndash;&gt;-->
+                                        <!--                                        <div class="cart-product-inner p-b-20 m-b-20 border-bottom">-->
+
+                                        <!--                                            &lt;!&ndash; Single Cart Product Start &ndash;&gt;-->
+                                        <!--                                            <div class="single-cart-product">-->
+                                        <!--                                                <div class="cart-product-thumb">-->
+                                        <!--                                                    <a href="single-product.html"><img-->
+                                        <!--                                                            th:src="@{/FrontEnd/assets/images/header/header-cart/1.png}"-->
+                                        <!--                                                            alt="Cart Product"></a>-->
+                                        <!--                                                </div>-->
+                                        <!--                                                <div class="cart-product-content">-->
+                                        <!--                                                    <h3 class="title"><a href="single-product.html">Basic Dog-->
+                                        <!--                                                        Trainning</a></h3>-->
+                                        <!--                                                    <div class="product-quty-price">-->
+                                        <!--                                                        <span class="cart-quantity">Qty: <strong> 1 </strong></span>-->
+                                        <!--                                                        <span class="price">-->
+                                        <!--                                                            <span class="new">$70.00</span>-->
+                                        <!--                                                        </span>-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            &lt;!&ndash; Single Cart Product End &ndash;&gt;-->
+
+                                        <!--                                            &lt;!&ndash; Product Remove Start &ndash;&gt;-->
+                                        <!--                                            <div class="cart-product-remove">-->
+                                        <!--                                                <a href="#/"><i class="icon-close"></i></a>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            &lt;!&ndash; Product Remove End &ndash;&gt;-->
+
+                                        <!--                                        </div>-->
+                                        <!-- Cart Product/Price End -->
+
+                                        <!-- Cart Product/Price Start -->
+                                        <!--                                        <div class="cart-product-inner p-b-20 m-b-20 border-bottom">-->
+
+                                        <!--                                            &lt;!&ndash; Single Cart Product Start &ndash;&gt;-->
+                                        <!--                                            <div class="single-cart-product">-->
+                                        <!--                                                <div class="cart-product-thumb">-->
+                                        <!--                                                    <a href="single-product.html"><img-->
+                                        <!--                                                            th:src="@{/FrontEnd/assets/images/header/header-cart/2.png}"-->
+                                        <!--                                                            alt="Cart Product"></a>-->
+                                        <!--                                                </div>-->
+                                        <!--                                                <div class="cart-product-content">-->
+                                        <!--                                                    <h3 class="title"><a href="single-product.html">Wait, You Need-->
+                                        <!--                                                        This</a></h3>-->
+                                        <!--                                                    <div class="product-quty-price">-->
+                                        <!--                                                        <span class="cart-quantity">Qty: <strong> 1 </strong></span>-->
+                                        <!--                                                        <span class="price">-->
+                                        <!--                                                            <span class="new">$80.00</span>-->
+                                        <!--                                                        </span>-->
+                                        <!--                                                    </div>-->
+                                        <!--                                                </div>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            &lt;!&ndash; Single Cart Product End &ndash;&gt;-->
+
+                                        <!--                                            &lt;!&ndash; Product Remove Start &ndash;&gt;-->
+                                        <!--                                            <div class="cart-product-remove">-->
+                                        <!--                                                <a href="#/"><i class="icon-close"></i></a>-->
+                                        <!--                                            </div>-->
+                                        <!--                                            &lt;!&ndash; Product Remove End &ndash;&gt;-->
+
+                                        <!--                                        </div>-->
+                                        <!-- Cart Product/Price End -->
+
+                                    </div>
+                                    <!-- Cart Procut Wrapper -->
+
+                                    <!-- Cart Product Total Start -->
+                                    <!--                                    <div class="cart-product-total p-b-20 m-b-20 border-bottom">-->
+                                    <!--                                        <span class="value">Total</span>-->
+                                    <!--                                        <span class="price">200$</span>-->
+                                    <!--                                    </div>-->
+                                    <!-- Cart Product Total End -->
+
+                                    <!-- Cart Product Button Start -->
+                                    <div class="cart-product-btn m-t-20">
+                                        <a th:href="@{/Front/Cart}"
+                                           class="btn btn-outline-light btn-hover-primary w-100 m-t-20">前往購物車</a>
+                                    </div>
+                                    <!-- Cart Product Button End -->
+
+                                </div>
+                                <!-- Header Cart Content End -->
+
+                            </div>
+                            <div class="header-action-btn header-action-btn-cart d-flex d-sm-none">
+                                <a href="cart.html">
+                                    <i class="icon-handbag icons"></i>
+                                    <span class="header-action-num">3</span>
+                                </a>
+                            </div>
+                            <!-- Header Action Button End -->
+
+                            <!-- Mobile Menu Hambarger Action Button Start -->
+                            <a href="javascript:void(0)"
+                               class="header-action-btn header-action-btn-menu d-lg-none d-md-flex">
+                                <i class="icon-menu"></i>
+                            </a>
+                            <!-- Mobile Menu Hambarger Action Button End -->
+
+                        </div>
+                    </div>
+                    <!-- Header Action End -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header Bottom End -->
+</header>

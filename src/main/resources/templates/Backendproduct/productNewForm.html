@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="BackEnd/includes/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>Lung-Hi Peace商品管理系統</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+<!-- _navbar -->
+<div th:include="BackEnd/includes/navbar :: navbar"></div>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.jsp -->
+    <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close ti-close"></i>
+        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="todo-tab"
+                                    data-bs-toggle="tab" href="#todo-section" role="tab"
+                                    aria-controls="todo-section" aria-expanded="true">TO DO LIST</a></li>
+            <li class="nav-item"><a class="nav-link" id="chats-tab"
+                                    data-bs-toggle="tab" href="#chats-section" role="tab"
+                                    aria-controls="chats-section">CHATS</a></li>
+        </ul>
+    </div>
+    <!-- partial -->
+    <!-- partial:partials/_sidebar.jsp -->
+    <div th:include="BackEnd/includes/sidebar :: sidebar"></div>
+    <!-- partial -->
+    <!-- 顯示區域從這開始 -->
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card container">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">New Product</h4>
+                            <form action="#" id="form" class="forms-sample" th:action="@{/Backendproduct/saveProduct}"
+                                  method="post" enctype="multipart/form-data"
+                                  th:object="${product}">
+
+                                <div class="form-group">
+                                    <label>品項</label>
+                                    <select th:field="*{pd_items}"
+                                            class="js-example-basic-single w-100 select2-hidden-accessible"
+                                            id="pd_items">
+                                        <option value="食品">食品</option>
+                                        <option value="衣飾">衣飾</option>
+                                        <option value="玩具">玩具</option>
+                                    </select>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>商品名稱</label>
+                                    <input type="text" th:field="*{pd_product_name}" class="form-control"
+                                           id="pd_product_name"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>圖片</label>
+                                    <input type="file" name="image4" class="form-control" id="localfileName"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>內容</label>
+                                    <input type="text" th:field="*{pd_content}" class="form-control" id="pd_content"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>商品規格</label>
+                                    <input type="text" th:field="*{pd_specification}" class="form-control"
+                                           id="pd_specification"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>商品數量</label>
+                                    <input type="text" th:field="*{pd_quantity}" class="form-control" id="pd_quantity"
+                                           onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>商品金額</label>
+                                    <input type="text" th:field="*{pd_amount}" class="form-control" id="pd_amount"
+                                           onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
+                                </div>
+                                <button type="button" class="btn btn-warning me-2" onclick="add();"><i
+                                        class="bi bi-send"></i>送出
+                                </button>
+                                <button type="button" class="btn btn-light" onclick="cancel();">Cancel</button>
+                                <button type="button" class="btn btn-light" onclick="quickData();">一鍵輸入</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- partial:partials/_footer.jsp -->
+<div th:include="BackEnd/includes/footer :: footer"></div>
+<!-- 主畫面結束 -->
+<!-- container-scroller -->
+
+<!-- Js匯入 -->
+<div th:include="BackEnd/includes/JavaScript :: JavaScript"></div>
+<script type="text/javascript">
+    function cancel() {
+        window.location.href = "./productlist"
+    }
+
+    function add() {
+        var form = document.getElementById("form").value;
+        var pd_items = document.getElementById("pd_items").value;
+        var pd_product_name = document.getElementById("pd_product_name").value;
+        var localfileName = document.getElementById("localfileName").value;
+        var pd_content = document.getElementById("pd_content").value;
+        var pd_specification = document.getElementById("pd_specification").value;
+        var pd_quantity = document.getElementById("pd_quantity").value;
+        var pd_amount = document.getElementById("pd_amount").value;
+        if (pd_items == null || pd_items == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請選擇品項！！',
+            })
+            return;
+        }
+        if (pd_product_name == null || pd_product_name == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入商品名稱！！',
+            })
+            return;
+        }
+        if (localfileName == null || localfileName == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請選擇照片！！',
+            })
+            return;
+        }
+        if (pd_content == null || pd_content == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入內容！！',
+            })
+            return;
+        }
+        if (pd_specification == null || pd_specification == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入規格！！',
+            })
+            return;
+        }
+        if (pd_quantity == null || pd_quantity == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入數量！！',
+            })
+            return;
+        }
+        if (pd_amount == null || pd_amount == '') {
+            Swal.fire({
+                icon: 'error',
+                title: '請輸入金額！！',
+            })
+            return;
+        }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "您將新增一筆商品",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '新增!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    '新增成功!',
+                    '您已成功新增一筆商品',
+                    'success'
+                )
+                var timeoutID = window.setTimeout((() => document.getElementById("form").submit()), 1000);
+            }
+        })
+
+    }
+    function quickData() {
+        // 各欄位預設內容
+        let pd_items =
+            '食品';
+        let pd_product_name =
+            '希爾思寵物食品 成犬 低卡 小顆粒';
+        let pd_content = '●商品特點\n' +
+            '[營養好吸收] 天然纖維 促進消化健康\n' +
+            '[特調小顆粒配方] 滿足在旺盛生命階段的能量需求\n' +
+            '[促進毛髮亮麗] 含Omega-6 與維生素E\n' +
+            '[維持精實肌肉] 雞肉第一成分 富含優質蛋白質\n' +
+            '[天然食材製作] 堅持不添加人工防腐劑、色素以及香料\n' +
+            '\n' +
+            '●商品介紹\n' +
+            '小型犬也可能有大食量，請選用希爾思寵物食品成犬小顆粒乾糧。此款優質成犬食品富含Omega-6和維生素E，有助於維持亮麗皮膚和毛髮，同時提供優良蛋白質，幫助成犬維持精實肌肉。小顆粒食品非常適合小型犬及迷你犬食用，另外由於成年狗狗需要強健的腸道，因此使用天然纖維促進消化健康。此款成犬食品由天然食材製成，經過數十年的尖端研究調配而成，絕佳美味會受到成犬喜愛。\n' +
+            '\n' +
+            '●適用生命階段\n' +
+            '推薦於：1-6歲成犬\n' +
+            '不推薦於：幼犬、懷孕或授乳母犬。懷孕或授乳期間，應轉換至希爾思寵物食品幼犬、希爾思寵物食品幼犬小顆粒、或希爾思寵物食品小型及迷你幼犬。\n' +
+            '\n' +
+            '●保證成份分析\n' +
+            '粗蛋白質 不低於 20% ; 粗脂肪 不低於 11.5% ; 粗纖維 不高於 4% ; 水 不高於 10% ; 維生素E 不低於 400 IU/kg ; 抗壞血酸(維生素C) 不低於 85 mg/kg ; Omega-6脂肪酸 不低於 2.5% '; // 若有新增預設標題及內容, 這裡的數字也要修正成對應的數量
+        let pd_specification = '包';
+        let pd_quantity = '400';
+        let pd_amount = '800';
+        // 各個欄位給值
+        // document.getElementById('localfileName').value = '1658388710788_2237014_4\.jpeg';
+        document.getElementById('pd_items').value = pd_items;
+        document.getElementById('pd_product_name').value = pd_product_name;
+        document.getElementById('pd_content').value = pd_content;
+        document.getElementById('pd_specification').value = pd_specification;
+        document.getElementById('pd_quantity').value = pd_quantity;
+        document.getElementById('pd_amount').value = pd_amount;
+    }
+</script>
+</body>
+</html>

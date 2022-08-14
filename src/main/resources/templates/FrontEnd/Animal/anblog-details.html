@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="FrontEnd/includes/head :: head"></div>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amber - Pet Care Bootstrap 5 Template</title>
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Vendor CSS (Icon Font) -->
+
+    <!-- 
+<link rel="stylesheet" href="assets/css/vendor/fontawesome.min.css" />
+<link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css" />
+<link rel="stylesheet" href="assets/css/vendor/simple-line-icons.min.css" />
+<link rel="stylesheet" href="assets/css/vendor/themify-icons-min.css" /> 
+ -->
+
+    <!-- Plugins CSS (All Plugins Files) -->
+
+    <!-- 
+<link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
+<link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
+<link rel="stylesheet" href="assets/css/plugins/lightgallery.min.css" />
+<link rel="stylesheet" href="assets/css/plugins/aos.min.css" />
+<link rel="stylesheet" href="assets/css/plugins/nice-select.min.css" /> 
+-->
+
+    <!-- Main Style CSS -->
+
+    <!-- <link rel="stylesheet" href="assets/css/style.css" />  -->
+
+    <!-- Use the minified version files listed below for better performance and remove the files listed above -->
+
+
+    <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/plugins.min.css">
+    <link rel="stylesheet" href="assets/css/style.min.css">
+
+
+
+
+</head>
+
+<body>
+<div th:include="FrontEnd/includes/navbar :: navbar"></div>
+
+    <div class="section breadcrumb-area bg-name-bright">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="breadcrumb-wrapper">
+                        <h2 class="breadcrumb-title">寵物媒合</h2>
+                        <ul>
+                            <li><a href="index.html">浪浪的家</a></li>
+                            <li>希望每一隻動物都能好好對待</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Area End -->
+
+    <!-- Blog Details Section Start -->
+    <div class="section section-margin">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 m-auto overflow-hidden"th:each="animal : ${animals}">
+                    <!-- Blog Details Wrapper Start -->
+                    <div class="blog-details-wrapper">
+
+                        <!-- Blog Details Content Start -->
+                        <div class="blog-details-content">
+
+                            <!-- Blog Image Start -->
+                            <div class="blog-image">
+                                <img class="fit-image" th:src="@{/image/{id}(id=${animal.abphonto})}" alt="Animal"/>
+
+                            </div>
+                            <!-- Blog Image End -->
+
+                            <!-- Blog details title & Meta Start -->
+                            <div class="blog-details-title-meta">
+                                <h2 class="title">寵物資訊相關</h2>
+
+
+                                <ul class="blog-meta">
+                                    <li>By: <a href="#/">Admin</a> <span><td th:text="${animal.abdate}"/></span></li>
+                                    <li>03 Comments</li>
+                                </ul>
+                            </div>
+                            <!-- Blog details title & Meta End -->
+
+                            <!-- Content Start -->
+                            <tr>
+                                <p><h3>寵物單號碼：<td th:text="${animal.abid}"/></p> </h3>
+                                <p><h3>寵物類型：<td th:text="${animal.abtype}"/></p></h3>
+                                <p><h3>寵物品種：<td th:text="${animal.abvariety}"/></p></h3>
+                                <p><h3>寵物姓：<td th:text="${animal.absex}"/> </p></h3>
+
+
+                            </tr>
+                            <!-- Blogquote Start -->
+                            <blockquote> 收容所資訊相關 </blockquote>
+                            <!-- Blogquote End -->
+                            <tr>
+                                <p><h3>帳戶名稱：<td th:text="${animal.abarea}"/></p></h3>
+                                <p><h3>收容行政區域：<td th:text="${animal.abname}"/></p></h3>
+                                <p><h3>收容所電話：<td th:text="${animal.abphone}"/></p></h3>
+                                <p><h3>聯絡信箱：<td th:text="${animal.abemail}"/> </p></h3>
+                                <p><h3>相關評論：<td th:text="${animal.abremark}"/></p></h3>
+
+                                </p>
+                            </tr>                            <!-- Content End -->
+
+                            <!-- Blog Details Tags & Social Shear Start -->
+
+
+    <!-- Footer Section Start -->
+<div th:include="BackEnd/includes/footer :: footer"></div>
+
+
+<div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
+
+    <!-- Mobile Menu End -->
+
+    <!-- Global Vendor, plugins JS -->
+
+    <!-- Vendor JS -->
+
+
+    <!-- 
+    <script src="assets/js/vendor/popper.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>
+    <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>   
+    -->
+
+
+    <!-- Plugins JS -->
+
+
+    <!-- 
+    <script src="assets/js/plugins/aos.min.js"></script>
+    <script src="assets/js/plugins/jquery.ajaxchimp.min.js"></script>
+    <script src="assets/js/plugins/jquery-ui.min.js"></script>
+    <script src="assets/js/plugins/nice-select.min.js"></script>
+    <script src="assets/js/plugins/swiper-bundle.min.js"></script>
+    <script src="assets/js/plugins/countdown.min.js"></script>
+    <script src="assets/js/plugins/lightgallery-all.min.js"></script>  
+    -->
+
+
+    <!-- Use the minified version files listed below for better performance and remove the files listed above -->
+
+    <script src="assets/js/vendor.min.js"></script>
+    <script src="assets/js/plugins.min.js"></script>
+
+    <!--Main JS-->
+    <script src="assets/js/main.js"></script>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

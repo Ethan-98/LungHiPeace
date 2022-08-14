@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.min.js"></script>
+<head>
+    <div th:replace="BackEnd/includes/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>LungHi Peace會員管理系統</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link th:href="@{/BackEnd/css/memberForm.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!-- _navbar -->
+<div th:replace="BackEnd/includes/navbar :: navbar"></div>
+<div id="oneClickBtnDiv">
+    <button type="button" id="oneClickEnter" onkeydown="setDistrict()"
+            class="btn btn-sm btn-outline-primary"><i
+            class="fa-solid fa-check"></i>一鍵輸入
+    </button>
+</div>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.jsp -->
+    <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close ti-close"></i>
+        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="todo-tab"
+                                    data-bs-toggle="tab" href="#todo-section" role="tab"
+                                    aria-controls="todo-section" aria-expanded="true">TO DO LIST</a></li>
+            <li class="nav-item"><a class="nav-link" id="chats-tab"
+                                    data-bs-toggle="tab" href="#chats-section" role="tab"
+                                    aria-controls="chats-section">CHATS</a></li>
+        </ul>
+    </div>
+    <!-- partial -->
+    <!-- partial:partials/_sidebar.jsp -->
+    <div th:replace="BackEnd/includes/sidebar :: sidebar"></div>
+    <!-- partial -->
+    <!-- 顯示區域從這開始 -->
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <!-- 上排按鈕 -->
+                <div class="d-sm-flex justify-content-between align-items-center  border-bottom">
+                    <!-- 拿掉justify-content-between，讓按鈕自動靠左 -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <!-- 這邊是空的用來排版 -->
+                    </ul>
+                    <div>
+                        <div class="btn-wrapper">
+                            <button type="button" id="backbutton" class="btn btn-sm btn-outline-primary btn-fw"
+                                    onclick="cancel()"><i
+                                    class="fa-solid fa-circle-arrow-left"></i> 返回
+                            </button>
+<!--                            <button type="button" id="oneClickEnter"-->
+<!--                                    class="btn btn-sm btn-outline-primary btn-fw"><i-->
+<!--                                    class="fa-solid fa-check"></i>一鍵輸入-->
+<!--                            </button>-->
+                        </div>
+                    </div>
+                </div>
+                <!-- End of 上排按鈕 -->
+                <div style="margin:10px 0"></div>
+                <div class="col-md-6 grid-margin stretch-card container">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">修改會員</h4>
+                            <form action="#" id="form" class="forms-sample" th:action="@{/Backendmember/saveMember}"
+                                  method="post"
+                                  th:object="${member}" enctype='multipart/form-data'>
+                                <input type="hidden" th:field="*{miActive}" value="Y">
+                                <div class="form-group">
+                                    <img id="blah" th:src="@{'/Backendmember/picture/' + ${member.miNo} }" style="display:block;width: 180px; height: 180px; margin:20px auto;border:2px solid #c0c3c4;border-radius:50%;background-color:#ebeff2;" />
+                                    <label>會員大頭貼</label>
+                                    <input th:field="*{productImage}" type='file' class="form-control" th:id="productImage" id="miHeadshot" onchange="previewHeadshot(event)" accept="image/*"/>
+                                </div>
+                                <input type="hidden" th:field="*{miNo}">
+                                <div class="form-group">
+                                    <label>會員編號</label>
+                                    <input type="text" class="form-control" th:field="*{miNo}" disabled/>
+                                </div>
+                                <div class="form-group" >  <!--  sec:authorize="hasRole('ADMIN')" -->
+                                    <label>會員權限</label>
+                                    <div>
+                                        <span th:each="role : ${allRole}" >
+                                            <label class="membertype-label">
+                                                <input type="checkbox" th:id="'check-role' + ${role}" th:value="${role}" />
+                                                <span th:text="${role}"></span>
+                                            </label>
+                                        </span>
+                                        <input type="hidden" th:field="*{miRole}"/>
+                                    </div>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small>Error message</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>會員帳號</label>
+                                    <input th:field="*{miAccount}" type="text" class="form-control" autocomplete="off"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small>Error message</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>會員密碼</label>
+                                    <input th:field="*{miPassword}" type="text" class="form-control hidetext" autocomplete="off"/>
+                                    <i class="fa-solid fa-eye" style="display: none;" id="togglePassword"></i> <!--一定要放，不然js會噴錯，但我不想讓密碼可以被看到，所以隱藏-->
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small>Error message</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>會員姓名</label>
+                                    <input th:field="*{miName}" type="text" class="form-control"
+                                           autocomplete="off"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small>Error message</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>會員性別</label>
+                                    <select th:field="*{miGender}"
+                                            class="js-example-basic-single w-100">
+                                        <option value="女">女</option>
+                                        <option value="男" selected>男</option>
+                                        <option value="不公開">不公開</option>
+                                    </select>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small>Error message</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>會員身分證</label>
+                                    <input th:field="*{miId}" type="text" class="form-control"
+                                           maxlength="10" autocomplete="off"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small>Error message</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>會員生日</label>
+                                    <input th:field="*{miBirth}" type="date" class="form-control"
+                                           max="3000-12-31" autocomplete="off" maxlength="10"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small>Error message</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>會員電話</label>
+                                    <input th:field="*{miPhone}" type="text" class="form-control"
+                                           onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="10"
+                                           autocomplete="off"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small>Error message</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>會員Email</label>
+                                    <input th:field="*{miEmail}" type="text" class="form-control"
+                                           autocomplete="off"/>
+                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    <small>Error message</small>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <label>會員地址</label>
+                                    </div>
+                                    <div class="js-demeter-tw-zipcode-selector" data-city="#miCity" data-dist="#miDistrict">
+                                        <select autofocus onchange="onblurCheckAddress()" th:field="*{miCity}" placeholder="縣市" ></select>
+                                        <select autofocus onchange="onblurCheckAddress()" th:field="*{miDistrict}" placeholder="鄉鎮市區"></select>
+                                    </div>
+                                    <div style="margin: 5px 0;">
+                                        <input autofocus oninput="onblurCheckAddress()" th:field="*{miAddress}" type="text" placeholder="請輸入詳細地址，例如:街道名稱、門牌號" class="form-control" >
+                                    </div>
+                                    <i style="top:76px;" class="fas fa-check-circle"></i>
+                                    <i style="top:76px;" class="fas fa-exclamation-circle"></i>
+                                    <small style="top:100px;">Error message</small>
+                                </div>
+                                <div style="margin:20px 0 ;">
+                                    <button id="form_button_reset" type="reset" class="btn btn-md btn-outline-primary btn-fw">
+                                        <i class="fa-solid fa-eraser"></i>清除輸入
+                                    </button>
+                                    <button id="form_button_submit" type="submit" class="btn btn-md btn-outline-primary btn-fw">
+                                        <i class="fa-solid fa-check"></i>送出
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- partial:partials/_footer.jsp -->
+<div th:replace="BackEnd/includes/footer :: footer"></div>
+<!-- 主畫面結束 -->
+<!-- container-scroller -->
+
+<script th:inline="javascript">
+    let allRole = [[${allRole}]];
+    let thisMemberRole = [[${member.miRole}]];
+</script>
+<script type="text/javascript" th:src="@{/BackEnd/js/memberForm2.js}"></script>
+<!-- Js匯入 -->
+<div th:replace="BackEnd/includes/JavaScript :: JavaScript"></div>
+<!-- 引用Zipcode -->
+<script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
+<script type='text/javascript' class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#location" /></script>
+<!-- fontawesome-->
+<script src="https://kit.fontawesome.com/ae6733f6ec.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+    // $("#zipcode3").twzipcode({
+        // "zipcodeIntoDistrict": false,
+        // 'countySel': '臺北市',
+        // 'districtSel': '大安區',
+        // 'zipcodeSel': '114',
+        // 'readonly': false
+    // });
+
+
+    function cancel(){
+        window.location.href = "../memberlist"
+    }
+
+    // function add(){
+    //     var form = document.getElementById("form").value;
+    //     var mi_account = document.getElementById("mi_account").value;
+    //     var mi_password = document.getElementById("mi_password").value;
+    //     var mi_name = document.getElementById("mi_name").value;
+    //     var mi_id = document.getElementById("mi_id").value;
+    //     var mi_birth = document.getElementById("mi_birth").value;
+    //     var mi_phone = document.getElementById("mi_phone").value;
+    //     var mi_email = document.getElementById("mi_email").value;
+    //     var mi_address = document.getElementById("mi_address").value;
+    //     if (mi_account == null || mi_account == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入帳號！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_password == null || mi_password == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入密碼！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_name == null || mi_name == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入姓名！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_id == null || mi_id == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入身分證字號！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_birth == null || mi_birth == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入生日！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_phone == null || mi_phone == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入電話！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_email == null || mi_email == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入Email！！',
+    //         })
+    //         return;
+    //     }
+    //     if (mi_address == null || mi_address == ''){
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: '請輸入地址！！',
+    //         })
+    //         return;
+    //     }
+    //
+    //     Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: "您將修改一筆會員",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: '修改!'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             Swal.fire(
+    //                 '新增成功!',
+    //                 '您已成功修改一筆會員',
+    //                 'success'
+    //             )
+    //             var timeoutID = window.setTimeout(( () =>  document.getElementById("form").submit() ), 1000);
+    //         }
+    //     })
+    //
+    // }
+</script>
+</body>
+</html>

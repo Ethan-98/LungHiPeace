@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="BackEnd/includes/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>Lung-Hi Peace報名管理系統</title>
+    <link th:href="@{/BackEnd/css/dataTable.css}" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+</head>
+<body>
+
+<!-- _navbar -->
+<div th:include="BackEnd/includes/navbar :: navbar"></div>
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.jsp -->
+    <div id="right-sidebar" class="settings-panel">
+        <i class="settings-close ti-close"></i>
+        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="todo-tab"
+                                    data-bs-toggle="tab" href="#todo-section" role="tab"
+                                    aria-controls="todo-section" aria-expanded="true">TO DO LIST</a></li>
+            <li class="nav-item"><a class="nav-link" id="chats-tab"
+                                    data-bs-toggle="tab" href="#chats-section" role="tab"
+                                    aria-controls="chats-section">CHATS</a></li>
+        </ul>
+    </div>
+    <!-- partial -->
+    <!-- partial:partials/_sidebar.jsp -->
+    <div th:include="BackEnd/includes/sidebar :: sidebar"></div>
+    <!-- partial -->
+    <!-- 顯示區域從這開始 -->
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg grid-margin stretch-card">
+                    <div class="card material-table">
+                        <div class="table-header">
+                            <!-- Table標題 -->
+                            <span class="table-title">活動報名紀錄</span>
+                            <div class="actions">
+                                <!-- 新增 -->
+                                <a href="#" class="modal-trigger waves-effect btn-flat nopadding"><i
+                                        class="mdi mdi-plus"></i></a><!-- i標籤是icon -->
+                                <!-- 搜尋 -->
+                                <a href="#" class="search-toggle waves-effect btn-flat nopadding"><i
+                                        class="material-icons">search</i></a>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="datatable">
+                                <thead>
+                                <tr>
+                                    <th>報名ID</th>
+                                    <th>報名編號</th>
+                                    <th>訂購會員</th>
+                                    <th>報名日期</th>
+                                    <th>活動名稱</th>
+<!--                                    <th>報名金額</th>-->
+<!--                                    <th>報名狀態</th>-->
+                                    <th>活動明細</th>
+<!--                                    <th>報名操作</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${orders}">
+                                    <td th:text="${order.orderId}"/>
+                                    <td th:text="${order.orderNo}"/>
+                                    <td th:text="${order.memberBean.miAccount}"/>
+                                    <td th:text="${#dates.format(order.orderDate, 'yyyy/MM/dd HH:mm')}"/>
+                                    <td th:text="${order.acname}"/>
+<!--                                    <td th:text="*{order.payType.name()} eq 'ECPAY'?'綠界支付': ${order.payType.name()}"/>-->
+<!--                                    <td th:text="|NT$${order.totalPrice}|"/>-->
+<!--                                    <td th:text="${order.orderStatus.code}"/>-->
+                                    <td>
+                                        <a class="btn btn-sm btn-info"
+                                                th:href="@{'/Frontendactivity/activitydetails/' + ${order.acid} }" type="button"
+                                        ><i class="bi bi-info-circle"></i>
+                                        </a>
+                                    </td>
+<!--                                    <td>-->
+<!--                                        <button class="btn btn-sm btn-secondary"-->
+<!--                                                th:if="${order.orderStatus.code} == '待出貨'" type="button"-->
+<!--                                                th:attr="onclick=|shipAlert('${order.orderNo}')|"-->
+<!--                                        ><i class="bi bi-truck"></i>出貨-->
+<!--                                        </button>-->
+<!--                                        <button class="btn btn-sm btn-danger"-->
+<!--                                                th:if="${order.orderStatus.code} == '退款審核中'" type="button"-->
+<!--                                                th:attr="onclick=|refundingAlert('${order.orderNo}')|"-->
+<!--                                        ><i class="bi bi-x"></i>退款處理-->
+<!--                                        </button>-->
+<!--                                        <button class="btn btn-sm btn-danger"-->
+<!--                                                th:onclick="|deleteAlert(${order.orderId})|" type="button"-->
+<!--                                        ><i class="bi bi-trash-fill"></i>-->
+<!--                                        </button>-->
+<!--                                    </td>-->
+
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.jsp -->
+            <div th:include="BackEnd/includes/footer :: footer"></div>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- 主畫面結束 -->
+<!-- container-scroller -->
+
+<!-- Js匯入 -->
+<!-- plugins:js -->
+<div th:include="BackEnd/includes/JavaScript :: JavaScript"></div>
+<script th:src="@{/BackEnd/js/activityapply.js}"></script>
+<!-- End custom js for this page-->
+
+<!-- 寫自己的Js -->
+<script>
+
+
+</script>
+</body>
+</html>

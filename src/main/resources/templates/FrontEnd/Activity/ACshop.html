@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:include="FrontEnd/includes/head :: head"></div>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lung-Hi Peace</title>
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Vendor CSS (Icon Font) -->
+
+    <!--
+<link rel="stylesheet" href="assets/css/vendor/fontawesome.min.css" />
+<link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css" />
+<link rel="stylesheet" href="assets/css/vendor/simple-line-icons.min.css" />
+<link rel="stylesheet" href="assets/css/vendor/themify-icons-min.css" />
+ -->
+
+    <!-- Plugins CSS (All Plugins Files) -->
+
+    <!--
+<link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
+<link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
+<link rel="stylesheet" href="assets/css/plugins/lightgallery.min.css" />
+<link rel="stylesheet" href="assets/css/plugins/aos.min.css" />
+<link rel="stylesheet" href="assets/css/plugins/nice-select.min.css" />
+-->
+
+    <!-- Main Style CSS -->
+
+    <!-- <link rel="stylesheet" href="assets/css/style.css" />  -->
+
+    <!-- Use the minified version files listed below for better performance and remove the files listed above -->
+
+
+    <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/plugins.min.css">
+    <link rel="stylesheet" href="assets/css/style.min.css">
+
+
+
+
+</head>
+
+<body>
+<div th:include="FrontEnd/includes/navbar :: navbar"></div>
+
+<!-- Header Section Start -->
+<div class="header section">
+
+    <!-- Header Top Start -->
+    <div class="header-top bg-name-primary">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <!-- Header Top Message Start -->
+                <div class="col-12 col-lg-6">
+                    <div class="header-top-msg-wrapper">
+                        <p class="header-top-message">歡迎來到LUNGHI PEACE!</p>
+                    </div>
+                </div>
+<!--                <div class="col-12 col-lg-6">-->
+<!--                    <div class="header-top-settings">-->
+<!--                        <ul class="nav">-->
+<!--                            <li class="curreny-wrap">-->
+<!--                                <a href="#">USD</a>-->
+<!--                                <i class="fa fa-angle-down"></i>-->
+<!--                                <ul class="dropdown-list curreny-list">-->
+<!--                                    <li><a href="#">$ USD</a></li>-->
+<!--                                    <li><a href="#">€ EUR</a></li>-->
+<!--                                    <li><a href="#">£ GBP</a></li>-->
+<!--                                    <li><a href="#">₹ INR</a></li>-->
+<!--                                    <li><a href="#">¥ JPY</a></li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <!-- Header Top Message End -->
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<!-- Mobile Menu Hambarger Action Button Start -->
+<a href="javascript:void(0)" class="header-action-btn header-action-btn-menu d-lg-none d-md-flex">
+    <i class="icon-menu"></i>
+</a>
+<!-- Mobile Menu Hambarger Action Button End -->
+
+</div>
+</div>
+<!-- Header Action End -->
+
+</div>
+</div>
+</div>
+</div>
+<!-- Header Bottom End -->
+
+</div>
+<!-- Header Section End -->
+
+<!-- Breadcrumb Area Start -->
+<div class="section breadcrumb-area bg-name-bright">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="breadcrumb-wrapper">
+                    <h2 class="breadcrumb-title">志工活動</h2>
+                    <ul>
+                        <li><a th:href="@{'/Frontendactivity/activities/'}">所有活動</a></li>
+                        <li>這裡有與動物更多的互動</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End -->
+
+<!-- Blog Grid Section Start -->
+
+
+<div class="section section-margin" >
+    <div class="container">
+        <!-- Section Title Start -->
+        <div class="section-title text-center">
+            <h2 class="title" data-aos="fade-up" data-aos-duration="1000">探索活動</h2>
+        </div>
+        <!-- Section Title End -->
+
+        <!-- Latest Blog Carousel Start -->
+        <div class="product-deal-carousel arrow-outside-container">
+            <div class="swiper-container">
+
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide" th:each="activity : ${activities}">
+                        <!-- Single Product Deal Start -->
+                        <div class="single-deal-product row m-b-n30">
+                            <!-- Deal Thumb Start -->
+                            <div class="deal-thumb col-md-6 m-b-30" data-aos="fade-up" data-aos-duration="1200">
+                                <a class="image" th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }">
+                                    <img class="fit-image" th:src="@{/image3/{id}(id=${activity.localFileName})}" alt="Blog Image">
+                                </a>
+                            </div>
+                            <!-- Deal Thumb End -->
+                            <!-- Deal Content Start -->
+                            <div class="product-deal-content col-md-6 m-b-30" data-aos="fade-up" data-aos-duration="1400">
+                                    <a  th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }">
+                                        <h5 class="title m-b-15" th:text="${activity.ac_name}"/>
+                                    </a>
+                                <span class="rating m-b-15">
+<!--													<i class="fa fa-star"></i>-->
+<!--													<i class="fa fa-star"></i>-->
+<!--													<i class="fa fa-star"></i>-->
+<!--													<i class="fa fa-star"></i>-->
+<!--													<i class="fa fa-star-o"></i>-->
+                                    <div class="blog-meta">
+                                         <a class="more-link"  th:href="@{${'https://www.google.com/maps/search/?api=1&query='+activity.ac_venue}}">
+                                            <i class="fa-solid fa-location-dot"></i><span th:text="${activity.ac_venue}"></span>
+                                            <i class="fa-solid fa-calendar"></i><span th:text="${activity.ac_date}"></span>
+                                         </a>
+                                    </div>
+                                </span>
+<!--                                <span class="price">-->
+<!--													<span class="new">$80.50</span>-->
+<!--                                            <span class="old">$85.80</span>-->
+<!--                                            </span>-->
+                                <p th:text="${activity.ac_participant}"/>
+                                <div class="countdown-area">
+                                    <div class="countdown-wrapper" th:data-countdown="${activity.ac_date}"></div>
+                                </div>
+                                <a  th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }" class="btn btn-primary btn-hover-dark">查看更多</a>
+                            </div>
+                            <!-- Deal Content End -->
+                        </div>
+                        <!-- Single Product Deal End -->
+                    </div>
+
+                </div>
+
+                <!-- Swiper Pagination Start -->
+                <div class="swiper-pagination d-none"></div>
+                <!-- Swiper Pagination End -->
+
+                <!-- Next Previous Button Start -->
+                <div class="swiper-deal-button-next swiper-button-next swiper-nav-button"><i class="ti-angle-right"></i></div>
+                <div class="swiper-deal-button-prev swiper-button-prev swiper-nav-button"><i class="ti-angle-left"></i></div>
+                <!-- Next Previous Button End -->
+            </div>
+        </div>
+        <!-- Latest Blog Carousel End -->
+        <!--搜尋開始-->
+        <form th:action="@{/Frontendactivity/animals}">
+        <aside class="sidebar_widget m-t-50 mt-lg-0">
+        <div class="widget_inner">
+        <div class="widget-list m-b-50">
+            <br>
+            <h3 class="widget-title m-b-30">開始搜尋</h3>
+            <div class="search-box">
+<!--                <input type="text" class="form-control" placeholder="Search Our Store" aria-label="Search Our Store">-->
+<!--                <button class="search-icon" type="button">-->
+<!--                    <i class="icon-magnifier"></i>-->
+<!--                </button>-->
+                    <input type="text"  class="form-control" placeholder="輸入關鍵字" aria-label="Search Our Store" name="keyword" id="keyword" th:value="${keyword}" required >
+                    <button class="search-icon" type="submit" value="Search" >
+                        <i class="icon-magnifier"></i>
+                    </button>
+            </div>
+        </div>
+        </div>
+        </aside>
+        </form>
+        <!--搜尋結束-->
+
+        <div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1 m-b-n40">
+
+            <div class="col m-b-40" th:each="activity : ${activities}">
+                <!-- Single Blog Start -->
+                <div class="single-blog-wrapper">
+                    <!-- Blog Thumb Start -->
+                    <div class="blog-thumb thumb-effect">
+                        <a class="image" th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }">
+                            <img class="fit-image" th:src="@{/image3/{id}(id=${activity.localFileName})}" alt="Blog Image">
+                        </a>
+                    </div>
+                    <!-- Blog Thumb End -->
+                    <!-- Blog Content Start -->
+                    <div class="blog-content">
+                        <div class="blog-meta">
+<!--                            <a class="more-link"  th:href="@{${'https://www.google.com/maps/search/?api=1&query='+activity.ac_venue}}">-->
+                            <ul>
+                                <i class="fa-solid fa-location-dot"></i><li><span th:text="${activity.ac_venue}"></span></li>
+                                <i class="fa-solid fa-calendar"></i><li><span th:text="${activity.ac_date}"></span></li>
+                            </ul>
+<!--                            </a>-->
+                        </div>
+                        <a  th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }"><h2 class="blog-title" th:text="${activity.ac_name}"/></a>
+                        <p th:text="${activity.ac_participant}"></p>
+                        <a class="more-link" th:href="@{'/Frontendactivity/activitydetails/' + ${activity.ac_id} }">更多內容</a>
+                    </div>
+
+                    <!-- Submit Button Start -->
+                    <div class="col-12 col-custom m-t-20">
+                        <!--                        <a type="submit" class="btn btn-primary btn-hover-dark" th:href="@{'/Frontendactivity/CheckOutApply/'}">立即報名</a>-->
+                        <a type="submit" class="btn btn-primary btn-hover-dark" th:href="@{'/Frontendactivity/CheckOutApply/' + ${activity.ac_id} }">立即報名</a>
+                        <!--                        <button type="submit" class="btn btn-info btn-hover-gray-deep">加入收藏</button>-->
+                    </div>
+                    <!-- Submit Button End -->
+                    <!-- Blog Content End -->
+                </div>
+                <!-- Single Blog End -->
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="row">
+    <div class="col-12 m-t-50">
+        <nav class="d-flex justify-content-center">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link active" href="#/">1</a></li>
+                <li class="page-item"><a class="page-link" href="#/">2</a></li>
+                <li class="page-item"><a class="page-link" href="#/">3</a></li>
+                <li class="page-item">
+                    <a class="page-link rounded-0" href="#/" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</div>
+</div>
+<!-- Blog Grid Section End -->
+
+<!-- Footer Section Start -->
+<div th:include="FrontEnd/includes/footer0 :: footer"></div>
+
+
+<!-- Mobile Menu End -->
+
+<!-- Global Vendor, plugins JS -->
+
+<!-- Vendor JS -->
+
+<div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
+
+<script src="assets/js/vendor.min.js"></script>
+<script src="assets/js/plugins.min.js"></script>
+
+<!--Main JS-->
+<script src="assets/js/main.js"></script>
+<script>
+    var swiper = new Swiper('.single-deal-product row m-b-n30', {
+        // slidesPerView: 3,
+        // spaceBetween: 30,
+        // centeredSlides: true,
+        autoplay: {
+            // delay: 2500,
+            // disableOnInteraction: false,
+        },
+        // pagination: {
+        //     el: '.swiper-pagination',
+        //     clickable: true,
+        // },
+        // navigation: {
+        //     nextEl: '.swiper-button-next',
+        //     prevEl: '.swiper-button-prev',
+        // },
+    });
+</script>
+
+
+</body>
+
+</html>

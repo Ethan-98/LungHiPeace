@@ -1,0 +1,24 @@
+<header th:fragment="JavaScript">
+    <script th:src="@{/FrontEnd/assets/js/vendor.min.js}"></script>
+    <script th:src="@{/FrontEnd/assets/js/plugins.min.js}"></script>
+    <script th:src="@{/FrontEnd/assets/js/main.js}"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <!-- dataTable -->
+    <script src="//cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- 	dataTable.js -->
+
+    <!-- 所有頁面取得user資訊 -->
+    <script type="text/javascript" th:src="@{/FrontEnd/assets/js/userajaxFrontend.js}"></script>
+    <script>
+        document.querySelector('df-messenger').addEventListener('df-messenger-loaded',  function (event) {
+            // dfMessenger.renderCustomText('Welcome to the new and improved version of Dexter');
+            document.querySelector('df-messenger').shadowRoot.querySelector('.df-messenger-wrapper').querySelector('#widgetIcon').style.right = "60px";
+            document.querySelector('df-messenger').shadowRoot.querySelector('.df-messenger-wrapper').querySelector('#widgetIcon').style.opacity = "0";
+            document.querySelector('df-messenger').shadowRoot.querySelector('.df-messenger-wrapper').querySelector('df-messenger-chat').shadowRoot.querySelector('.chat-wrapper').style.right = "140px";
+        })
+    </script>
+
+</header>

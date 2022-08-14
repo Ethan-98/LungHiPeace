@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>權限信息</title>
+</head>
+<body>
+<ol>
+    <!-- 属性获取，authentication：n. 证明；鉴定；证实 -->
+    <li>登录账号:<span sec:authentication="name"></span></li>
+    <!-- principal相当于UserDetails信息 -->
+    <li>登录账号:<span sec:authentication="principal.username"></span></li>
+    <li>登录密码:<span sec:authentication="principal.password"></span></li>
+    <li>账号过期:<span sec:authentication="principal.accountNonExpired"></span></li>
+    <li>账号锁定:<span sec:authentication="principal.accountNonLocked"></span></li>
+    <li>凭证过期:<span sec:authentication="principal.credentialsNonExpired"></span></li>
+    <li>账号启用:<span sec:authentication="principal.enabled"></span></li>
+    <li>凭证：<span sec:authentication="credentials"></span></li>
+    <li>权限和角色：<span sec:authentication="authorities"></span></li>
+    <!-- WebAuthenticationDetails实例 -->
+    <li>客户端地址：<span sec:authentication="details.remoteAddress"></span></li>
+    <li>sessionId：<span sec:authentication="details.sessionId"></span></li>
+</ol>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="FrontEnd/includes/head :: head"></div>
+    <meta charset="UTF-8">
+    <title>Lung-Hi Peace</title>
+</head>
+<body>
+<!-- _navbar -->
+<div th:include="FrontEnd/includes/navbar :: navbar"></div>
+
+<!-- Blog Details Section Start -->
+<div class="section section-margin">
+    <div class="container">
+        <div class="row" >
+<!--            <input type="hidden" th:text="${announce.anNo}">-->
+            <div class="col-lg-9 m-auto overflow-hidden">
+                <!-- Blog Details Wrapper Start -->
+                <div class="blog-details-wrapper">
+                    <!-- Blog Details Content Start -->
+                    <div class="blog-details-content">
+                        <!-- Blog Image Start -->
+                        <div class="blog-image">
+                            <img class="fit-image" th:src="@{${'/FrontEnd/assets/images/announce/' + announce.anPhoto}}" alt="Blog Image">
+                        </div>
+                        <!-- Blog Image End -->
+                        <!-- Blog details title & Meta Start -->
+                        <div class="blog-details-title-meta">
+                            <h2 class="title" th:text="${announce.anTitle}"></h2>
+                            <ul class="blog-meta">
+                                <li>By: <span th:text="${announce.anEditor}"></span> <span th:text="${announce.anDate}"></span></li>
+                                <li><span th:text="${announce.anType}"></span></li>
+                            </ul>
+                        </div>
+                        <!-- Blog details title & Meta End -->
+                        <!-- Content Start -->
+                        <p th:text="${announce.anContent}"></p><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+<div th:include="FrontEnd/includes/JavaScript :: JavaScript"></div>
+<!-- Blog Section End -->
+</body>
+</html>
